@@ -1,0 +1,9 @@
+set editing-mode vim
+
+$if mode=vi
+set keymap vi-command
+control-l: clear-screen
+
+set keymap vi-insert
+control-l: clear-screen
+$endif
