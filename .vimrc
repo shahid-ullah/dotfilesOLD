@@ -10,6 +10,10 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
+Plugin 'dense-analysis/ale'
+Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'google/yapf'
+
 "Plugin 'neoclide/coc.nvim'
 "Plugin 'Valloric/YouCompleteMe'
 Plugin 'davidhalter/jedi-vim'
@@ -159,14 +163,14 @@ let g:NERDTreeGitStatusShowIgnored= 1
 
 
 " To add the proper PEP 8 indentation
-au BufNewFile,BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=79 |
-    \ set expandtab |
-    \ set fileformat=unix |
-    \ set colorcolumn=79 |
+" au BufNewFile,BufRead *.py
+"     \ set tabstop=4 |
+"     \ set softtabstop=4 |
+"     \ set shiftwidth=4 |
+"     \ set textwidth=79 |
+"     \ set expandtab |
+"     \ set fileformat=unix |
+"     \ set colorcolumn=79 |
 
 "" For full stack developemnt
 au BufNewFile,BufRead *.js,*.html,*.css
@@ -197,6 +201,10 @@ nnoremap <silent> ,/ :nohlsearch<CR>
 " autocmd BufNewFile base.html 0r ~/.vim/templates/base.html
 " nnoremap ,im :-1read ~/.vim/templates/hacker<CR>
 " nnoremap ,html :-1read ~/.vim/templates/base.html<CR>
+nnoremap ,scm :-1read ~/.vim/templates/scm<CR>
+nnoremap ,ecm :-1read ~/.vim/templates/ecm<CR>
+nnoremap 1 :-1read ~/.vim/templates/scm<CR>
+nnoremap 2 :read ~/.vim/templates/ecm<CR>
 
 
 " Provide list of buffers
@@ -357,4 +365,50 @@ nmap <Leader>b :Buffers<CR>
 nmap <Leader>h :History<CR>
 
 nmap <Leader>t :BTags<CR>
-nmap <Leader>T :Tags<CR>
+nmap <S-t> :Tags<CR>
+
+"Jump back to last edited buffer
+" nnoremap <C-b> <C-^>
+" inoremap <C-b> <esc><C-^>
+
+autocmd BufReadPost *.doc,*.docx,*.rtf,*.odp,*.odt silent %!pandoc "%" -tplain -o /dev/stdout
+
+" colorscheme wombat256
+" highlight Normal guibg=black guifg=white
+" set background=dark
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+  \   <bang>0)
+nnoremap <C-g> :Rg<CR>
+" \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+
+" configuration for ale
+" let b:ale_linters = ['flake8', 'pylint']
+" " Fix Python files with autopep8 and yapf.
+" let b:ale_fixers = ['autopep8', 'yapf']
+" " Disable warnings about trailing whitespace for Python files.
+let b:ale_warn_about_trailing_whitespace = 0
+
+let s:available_short_python = ':py3'
+" Check Python files with flake8 and pylint.
+let b:ale_linters = {'python': ['flake8']}
+" Fix Python files with black, autopep8 and isort.
+let b:ale_fixers = {'python': ['black', 'isort']}
+let b:ale_fix_on_save = 1
+" In ~/.vim/vimrc, or somewhere similar.
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\}
+
+" Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
+" Write this in your vimrc file
+" let g:ale_set_loclist = 0
+" let g:ale_set_quickfix = 1
+" g:ale_echo_cursor = 0
+
+let g:fzf_preview_window = ['right:50%', 'ctrl-/']
+let g:fzf_buffers_jump = 1
