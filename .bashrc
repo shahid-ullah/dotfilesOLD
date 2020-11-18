@@ -136,15 +136,28 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 # Custom commands
-alias ctags='ctags -R'
+# alias ctags='ctags -R'
+alias ctags='universal-ctags -R'
 
 eval 'dircolors ~/.dircolors' > /dev/null
 alias python='python3'
 alias cd1='cd ..'
 alias cd2='cd1 ..'
-export CDPATH=.:~:~/Desktop/Desktop:~/BlogContent/tracking
+export CDPATH=.:~:~/Desktop/Desktop:~/BlogContent:~/Desktop/Desktop/coding
+# export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
+export FZF_DEFAULT_COMMAND='rg --files'
 alias cd1="cd .."
 alias cd2="cd ../.."
 alias cd3="cd ../../.."
 alias cd4="cd ../../../.."
 alias cd5="cd ../../../../.."
+# source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
+alias lh='ls -ld .?*'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+alias runserver="python manage.py runserver"
+alias makemigrations="python manage.py makemigrations"
+alias migrate="python manage.py migrate"
+alias shell="python manage.py shell"
+alias shell_plus="python manage.py shell_plus"
