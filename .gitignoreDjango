@@ -1,6 +1,7 @@
 # for Myself only
 note
 .vim
+Session.vim
 
 # Django #
 *.log
