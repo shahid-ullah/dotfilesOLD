@@ -9,10 +9,11 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+Plugin 'tpope/vim-obsession'
 
 Plugin 'dense-analysis/ale'
-Plugin 'hynek/vim-python-pep8-indent'
-Plugin 'google/yapf'
+" Plugin 'hynek/vim-python-pep8-indent'
+" Plugin 'google/yapf'
 
 "Plugin 'neoclide/coc.nvim'
 "Plugin 'Valloric/YouCompleteMe'
@@ -34,7 +35,7 @@ Plugin 'JamshedVesuna/vim-markdown-preview'
 "Plugin 'webdevel/tabulous'
 Plugin 'tmhedberg/SimpylFold'
 "Plugin 'vim-scripts/indentpython.vim'
-"Plugin 'hdima/python-syntax'
+Plugin 'hdima/python-syntax'
 "Plugin 'vim-syntastic/syntastic'
 "Plugin 'tomtom/tcomment_vim'
 Plugin 'tpope/vim-commentary'
@@ -51,7 +52,7 @@ Plugin 'junegunn/fzf.vim'
 
 Plugin 'mileszs/ack.vim'
 Plugin 'ggreer/the_silver_searcher'
-let g:ackprg = 'ag --nogroup --nocolor --column'
+" let g:ackprg = 'ag --nogroup --nocolor --column'
 
 Plugin 'simnalamburt/vim-mundo'
 Plugin 'christoomey/vim-tmux-navigator'
@@ -79,6 +80,7 @@ set wildmenu
 set laststatus=2
 set mouse=a
 set title
+
 " swap and backup file options
 set noswapfile
 set nobackup
@@ -88,8 +90,14 @@ set directory=$HOME/.vim/swp//
 set backupdir=~/.vim/.backup//
 
 " Enable persistent undo so that undo history persists across vim sessions
+" The directory must be created
 set undofile
 set undodir=~/.vim/undodir
+" Disable persistent undo for temporary file, you can tweak as your need
+augroup vimrc
+    autocmd!
+    autocmd BufWritePre /tmp/* setlocal noundofile
+augroup END
 
 set tabstop=4
 set expandtab
@@ -102,7 +110,7 @@ highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 " remove trailing whitespace automatically
 autocmd BufWritePre * :%s/\s\+$//e
-" let python_highlight_all=1
+let python_highlight_all=1
 
 "Move visual selection
 vnoremap J :m '>+1<CR>gv=gv
@@ -112,7 +120,7 @@ vnoremap . :normal.<CR>
 " stop preview window
 " set completeopt-=preview
 autocmd FileType python setlocal completeopt-=preview
-autocmd FileType python setlocal foldmethod=manual
+autocmd FileType python setlocal foldmethod=indent
 
 let mapleader = ","
 nnoremap \ ,
@@ -148,17 +156,17 @@ let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
 let g:NERDTreeGitStatusIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
+            \ "Modified"  : "✹",
+            \ "Staged"    : "✚",
+            \ "Untracked" : "✭",
+            \ "Renamed"   : "➜",
+            \ "Unmerged"  : "═",
+            \ "Deleted"   : "✖",
+            \ "Dirty"     : "✗",
+            \ "Clean"     : "✔︎",
+            \ 'Ignored'   : '☒',
+            \ "Unknown"   : "?"
+            \ }
 let g:NERDTreeGitStatusShowIgnored= 1
 
 
@@ -174,10 +182,10 @@ let g:NERDTreeGitStatusShowIgnored= 1
 
 "" For full stack developemnt
 au BufNewFile,BufRead *.js,*.html,*.css
-    \ set tabstop=2 |
-    \ set shiftwidth=2 |
-    \ set softtabstop=2 |
-    \ set colorcolumn=79 |
+            \ set tabstop=2 |
+            \ set shiftwidth=2 |
+            \ set softtabstop=2 |
+            \ set colorcolumn=79 |
 
 "Removing unnecessary whitespace
 set background=dark
@@ -189,10 +197,10 @@ set t_Co=256
 " configuring pipenv virtual environment path for YoucomepleteMe
 let pipenv_venv_path = system('pipenv --venv')
 if shell_error == 0
-  let venv_path = substitute(pipenv_venv_path, '\n', '', '')
-  let g:ycm_python_binary_path = venv_path . '/bin/python'
+    let venv_path = substitute(pipenv_venv_path, '\n', '', '')
+    let g:ycm_python_binary_path = venv_path . '/bin/python'
 else
-  let g:ycm_python_binary_path='/usr/bin/python3'
+    let g:ycm_python_binary_path='/usr/bin/python3'
 endif
 
 nnoremap <silent> ,/ :nohlsearch<CR>
@@ -201,55 +209,42 @@ nnoremap <silent> ,/ :nohlsearch<CR>
 " autocmd BufNewFile base.html 0r ~/.vim/templates/base.html
 " nnoremap ,im :-1read ~/.vim/templates/hacker<CR>
 " nnoremap ,html :-1read ~/.vim/templates/base.html<CR>
-nnoremap ,scm :-1read ~/.vim/templates/scm<CR>
-nnoremap ,ecm :-1read ~/.vim/templates/ecm<CR>
 nnoremap 1 :-1read ~/.vim/templates/scm<CR>
 nnoremap 2 :read ~/.vim/templates/ecm<CR>
 
 
-" Provide list of buffers
-" nnoremap <leader>l :ls<CR>
-
 " inoremap <esc> <nop>
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
-" make . to work with visually selected lines
-"highlight Cursor ctermfg=White ctermbg=Yellow cterm=bold guifg=white guibg=yellow gui=bold
-"highlight CursorColumn ctermfg=White ctermbg=Yellow cterm=bold guifg=white guibg=yellow gui=bold
-"
-" compiler pylint
-"cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-
-" hi CursorLine   cterm=NONE ctermbg=61 ctermfg=white guibg=darkred guifg=white
 
 set tags=tags; " Look for a tags file recursively in
-               " in parent directories
-nnoremap <F5> :MundoToggle<CR>
+" in parent directories
 
+nnoremap <F5> :MundoToggle<CR>
 
 " setting collected from Navigating Vim and Tmux Splits (Christopher)
 if exists('$TMUX')
-  function! TmuxOrSplitSwitch(wincmd, tmuxdir)
-    let previous_winnr = winnr()
-    silent! execute "wincmd " . a:wincmd
-    if previous_winnr == winnr()
-      call system("tmux select-pane -" . a:tmuxdir)
-      redraw!
-    endif
-  endfunction
+    function! TmuxOrSplitSwitch(wincmd, tmuxdir)
+        let previous_winnr = winnr()
+        silent! execute "wincmd " . a:wincmd
+        if previous_winnr == winnr()
+            call system("tmux select-pane -" . a:tmuxdir)
+            redraw!
+        endif
+    endfunction
 
-  let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
-  let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
-  let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
+    let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
+    let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
+    let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
 
-  nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<cr>
-  nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
-  nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<cr>
-  nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<cr>
+    nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<cr>
+    nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
+    nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<cr>
+    nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<cr>
 else
-  map <C-h> <C-w>h
-  map <C-j> <C-w>j
-  map <C-k> <C-w>k
-  map <C-l> <C-w>l
+    map <C-h> <C-w>h
+    map <C-j> <C-w>j
+    map <C-k> <C-w>k
+    map <C-l> <C-w>l
 endif
 
 let g:pymode_options_max_line_length = 120
@@ -271,18 +266,18 @@ vnoremap <C-d> "+d
 " bind K to grep word under cursor
 " nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 if executable('ag')
-  " Use ag over grep "
-  set grepprg=ag\ --nogroup\ --nocolor\ --column
+    " Use ag over grep "
+    set grepprg=ag\ --nogroup\ --nocolor\ --column
 
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore "
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore "
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
-  " ag is fast enough that CtrlP doesn't need to cache "
-  let g:ctrlp_use_caching = 0
+    " ag is fast enough that CtrlP doesn't need to cache "
+    let g:ctrlp_use_caching = 0
 
-  " bind \ (backward slash) to grep shortcut "
-  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-  nnoremap \ :Ag<SPACE>
+    " bind \ (backward slash) to grep shortcut "
+    command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+    nnoremap \ :Ag<SPACE>
 endif
 
 " bind K to grep word under cursor "
@@ -328,12 +323,12 @@ vnoremap <leader>z zf
 nnoremap <Space> za
 
 augroup AutoSaveFolds
-  autocmd!
-  " view files are about 500 bytes
-  " bufleave but not bufwinleave captures closing 2nd tab
-  " nested is needed by bufwrite* (if triggered via other autocmd)
-  autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
-  autocmd BufWinEnter ?* silent! loadview
+    autocmd!
+    " view files are about 500 bytes
+    " bufleave but not bufwinleave captures closing 2nd tab
+    " nested is needed by bufwrite* (if triggered via other autocmd)
+    autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
+    autocmd BufWinEnter ?* silent! loadview
 augroup end
 
 set completeopt=longest,menuone
@@ -377,11 +372,11 @@ autocmd BufReadPost *.doc,*.docx,*.rtf,*.odp,*.odt silent %!pandoc "%" -tplain -
 " highlight Normal guibg=black guifg=white
 " set background=dark
 command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-  \   <bang>0)
+            \ call fzf#vim#grep(
+            \   'rg --column --line-number --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+            \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+            \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+            \   <bang>0)
 nnoremap <C-g> :Rg<CR>
 " \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
 
@@ -393,22 +388,35 @@ nnoremap <C-g> :Rg<CR>
 let b:ale_warn_about_trailing_whitespace = 0
 
 let s:available_short_python = ':py3'
-" Check Python files with flake8 and pylint.
-let b:ale_linters = {'python': ['flake8']}
-" Fix Python files with black, autopep8 and isort.
-let b:ale_fixers = {'python': ['black', 'isort']}
-let b:ale_fix_on_save = 1
+let g:ale_fix_on_save = 1
 " In ~/.vim/vimrc, or somewhere similar.
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\}
+            \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \}
 
 " Set this. Airline will handle the rest.
 let g:airline#extensions#ale#enabled = 1
 " Write this in your vimrc file
 " let g:ale_set_loclist = 0
 " let g:ale_set_quickfix = 1
-" g:ale_echo_cursor = 0
+" let g:ale_echo_cursor = 0
 
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
-let g:fzf_buffers_jump = 1
+" let g:fzf_buffers_jump = 1
+
+let g:ale_echo_cursor=0
+
+" function! SilenceWarningAle()
+" let b:ale_echo_cursor=0
+" endfunction
+" function! EnableWarningAle()
+" let b:ale_echo_cursor=1
+" endfunction
+" nnoremap <leader>sw :call SilenceWarningAle()<CR>
+" nnoremap <leader>ew :call EnableWarningAle()<CR>
+" nnoremap <F9> :ALEFix<CR>
+
+let g:jedi#popup_select_first = 0
+" nnoremap H gT
+" nnoremap L gt
+set guitablabel=%N/\ %t\ %M
