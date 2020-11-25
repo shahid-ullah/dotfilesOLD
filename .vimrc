@@ -74,7 +74,6 @@ syntax enable
 set encoding=utf-8
 set incsearch
 set hlsearch
-nnoremap <silent> <leader>, :nohlsearch<CR>
 " Find file in nested folder
 set path+=**
 set wildmenu
@@ -120,6 +119,7 @@ autocmd FileType python setlocal foldmethod=indent
 
 let mapleader = ","
 nnoremap \ ,
+nnoremap <silent> <leader>, :nohlsearch<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
 
@@ -277,37 +277,16 @@ endif
 " nnoremap <Tab> :bnext<CR>
 " nnoremap <S-Tab> :bprevious<CR>
 
-
-"python with virtualenv support
-
-" py3 << EOF
-" import os
-" import sys
-" if 'VIRTUAL_ENV' in os.environ:
-"    project_base_dir = os.environ['VIRTUAL_ENV']
-"    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-"    execfile(activate_this, dict(__file__=activate_this))
-" EOF
-
-" let g:vim_isort_python_version = 'python3.8'
-
-" let s:available_short_python = ':py3'
 " For comment in django template
 autocmd FileType htmldjango setlocal commentstring={#\ %s\ #}
 
 " let g:indent_guides_enable_on_vim_startup = 1
 let g:SimpylFold_fold_import = 0
-let b:SimpylFold_fold_import = 0
-
-
-" set nofoldenable
-" set foldlevel=2
 
 set foldenable "Enable folding
 set foldlevelstart=10 "Open most of the folds by default. If set to 0, all folds will be closed.
 set foldnestmax=10 "Folds can be nested. Setting a max value protects you from too many folds.
-" set foldmethod=manual "Defines the type of folding.
-" set foldcolumn=2
+
 nnoremap <leader>z zfip
 vnoremap <leader>z zf
 nnoremap <Space> za
@@ -324,15 +303,14 @@ augroup end
 set completeopt=longest,menuone
 " set cursorline
 " highlight CursorLine guibg=lightblue ctermbg=lightgrey
-" highlight CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 highlight CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 
 " testing with new settings
-set hidden
+set hidden " helps to edit multiple buffers without saving
 set showcmd
 set ruler
 set nowrap
-set confirm
+set confirm "Confirm closing buffer without saving
 
 nnoremap <F3> :source %<CR>
 
@@ -353,8 +331,8 @@ nmap <Leader>t :BTags<CR>
 nmap <S-t> :Tags<CR>
 
 "Jump back to last edited buffer
-" nnoremap <C-b> <C-^>
-" inoremap <C-b> <Esc><C-^>
+nnoremap <C-b> <C-^>
+inoremap <C-b> <Esc><C-^>
 
 autocmd BufReadPost *.doc,*.docx,*.rtf,*.odp,*.odt silent %!pandoc "%" -tplain -o /dev/stdout
 
@@ -368,21 +346,12 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
   \   <bang>0)
 nnoremap <C-g> :Rg<CR>
-" \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
-
-" configuration for ale
-" let b:ale_linters = ['flake8', 'pylint']
-" " Fix Python files with autopep8 and yapf.
-" let b:ale_fixers = ['autopep8', 'yapf']
-" " Disable warnings about trailing whitespace for Python files.
 
 let s:available_short_python = ':py3'
 " Check Python files with flake8 and pylint.
 let g:ale_linters = {'python': ['flake8', 'pycodestyle', 'pylint']}
-" Fix Python files with black, autopep8 and isort.
-" let b:ale_fixers = {'python': ['autopep8', 'isort']}
 let g:ale_fix_on_save = 1
-" In ~/.vim/vimrc, or somewhere similar.
+" Fix Python files with black, autopep8 and isort.
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['isort'],
@@ -392,20 +361,6 @@ let g:ale_echo_cursor=0
 
 " Set this. Airline will handle the rest.
 let g:airline#extensions#ale#enabled = 1
-" Write this in your vimrc file
-" let g:ale_set_loclist = 0
-" let g:ale_set_quickfix = 1
-" g:ale_echo_cursor = 0
 
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 let g:fzf_buffers_jump = 1
-
-
-" cycle through buffers
-" map <C-K> :bprev<CR>
-" map <C-J> :bnext<CR>
-
-" Experimenting
-" nnoremap <C-p> <C-^>
-nnoremap ; :Buffers<CR>
-" nnoremap f /
