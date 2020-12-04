@@ -9,6 +9,8 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+Plugin 'webdevel/tabulous'
+Plugin 'tpope/vim-repeat'
 
 Plugin 'dense-analysis/ale'
 " Plugin 'hynek/vim-python-pep8-indent'
@@ -105,7 +107,6 @@ highlight BadWhitespace ctermbg=red guibg=darkred
 " remove trailing whitespace automatically
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 autocmd BufWritePre * :%s/\s\+$//e
-" let python_highlight_all=1
 
 "Move visual selection
 vnoremap J :m '>+1<CR>gv=gv
@@ -199,10 +200,8 @@ endif
 " nnoremap ,html :-1read ~/.vim/templates/base.html<CR>
 " nnoremap ,scm :-1read ~/.vim/templates/scm<CR>
 " nnoremap ,ecm :-1read ~/.vim/templates/ecm<CR>
-nnoremap 1 :-1read ~/.vim/templates/scm<CR>
-nnoremap 2 :read ~/.vim/templates/ecm<CR>
-
-
+nnoremap <leader>1 :-1read ~/.vim/templates/scm<CR>
+nnoremap <leader>2 :read ~/.vim/templates/ecm<CR>
 
 " inoremap <esc> <nop>
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
@@ -269,7 +268,7 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 
   " bind \ (backward slash) to grep shortcut "
-  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+  command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
   nnoremap \ :Ag<SPACE>
 endif
 
@@ -300,17 +299,17 @@ augroup AutoSaveFolds
   autocmd BufWinEnter ?* silent! loadview
 augroup end
 
-set completeopt=longest,menuone
+" set completeopt=longest,menuone
 " set cursorline
-" highlight CursorLine guibg=lightblue ctermbg=lightgrey
+" highlight CursorLine guibg=lightblue ctermbg=NONE
 highlight CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 
 " testing with new settings
 set hidden " helps to edit multiple buffers without saving
-set showcmd
-set ruler
-set nowrap
-set confirm "Confirm closing buffer without saving
+" set showcmd
+" set ruler
+" set nowrap
+set confirm "Confirm before Closing buffer without saving
 
 nnoremap <F3> :source %<CR>
 
@@ -349,7 +348,7 @@ nnoremap <C-g> :Rg<CR>
 
 let s:available_short_python = ':py3'
 " Check Python files with flake8 and pylint.
-let g:ale_linters = {'python': ['flake8', 'pycodestyle', 'pylint']}
+let g:ale_linters = {'python': ['flake8', 'pycodestyle']}
 let g:ale_fix_on_save = 1
 " Fix Python files with black, autopep8 and isort.
 let g:ale_fixers = {
@@ -363,4 +362,8 @@ let g:ale_echo_cursor=0
 let g:airline#extensions#ale#enabled = 1
 
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
-let g:fzf_buffers_jump = 1
+" let g:fzf_buffers_jump = 1
+"
+"
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'universal-ctags -R'
