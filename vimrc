@@ -116,7 +116,7 @@ vnoremap . :normal.<CR>
 " stop preview window
 " set completeopt-=preview
 autocmd FileType python setlocal completeopt-=preview
-autocmd FileType python setlocal foldmethod=indent
+" autocmd FileType python setlocal foldmethod=indent
 
 let mapleader = ","
 nnoremap \ ,
@@ -300,16 +300,18 @@ augroup AutoSaveFolds
 augroup end
 
 " set completeopt=longest,menuone
-" set cursorline
-" highlight CursorLine guibg=lightblue ctermbg=NONE
+set cursorline
+" Highlight corsorline
+" highlight CursorLine guibg=lightblue ctermbg=lightgrey
+
 highlight CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 
 " testing with new settings
 set hidden " helps to edit multiple buffers without saving
 " set showcmd
 " set ruler
-" set nowrap
-set confirm "Confirm before Closing buffer without saving
+set nowrap "Dont wrap lines
+set confirm "Display an confirmation dialog when closing a unsaved file
 
 nnoremap <F3> :source %<CR>
 
