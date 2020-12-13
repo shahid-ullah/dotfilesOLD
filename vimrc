@@ -11,6 +11,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'webdevel/tabulous'
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-unimpaired'
 
 Plugin 'dense-analysis/ale'
 " Plugin 'hynek/vim-python-pep8-indent'
@@ -42,11 +43,12 @@ Plugin 'tmhedberg/SimpylFold'
 Plugin 'tpope/vim-commentary'
 "Plugin 'godlygeek/tabular'
 
-Plugin 'altercation/vim-colors-solarized'
+" Plugin 'altercation/vim-colors-solarized'
 Plugin 'ryanoasis/vim-devicons'
-"Plugin 'ErichDonGubler/vim-sublime-monokai'
+" Plugin 'ErichDonGubler/vim-sublime-monokai'
 " Plugin 'tomasiser/vim-code-dark'
-" Plugin 'morhetz/gruvbox'
+Plugin 'morhetz/gruvbox'
+" autocmd vimenter * ++nested colorscheme gruvbox
 "Plugin 'sheerun/vim-polyglot'
 
 Plugin 'junegunn/fzf', { 'do': './install --bin' }
@@ -73,6 +75,7 @@ set number
 set relativenumber
 
 syntax enable
+syntax on
 set encoding=utf-8
 set incsearch
 set hlsearch
@@ -115,8 +118,9 @@ vnoremap . :normal.<CR>
 
 " stop preview window
 " set completeopt-=preview
+autocmd FileType python setlocal foldmethod=manual
 autocmd FileType python setlocal completeopt-=preview
-" autocmd FileType python setlocal foldmethod=indent
+set foldmethod=manual
 
 let mapleader = ","
 nnoremap \ ,
@@ -181,8 +185,16 @@ au BufNewFile,BufRead *.js,*.html,*.css
     \ set colorcolumn=90 |
 
 set background=dark
-colorscheme solarized
-" set t_Co=256
+" colorscheme solarized
+" colorscheme sublimemonokai
+" colorscheme codedark
+" set termguicolors
+" let g:gruvbox_termcolors=16
+set t_Co=256
+colorscheme gruvbox
+
+" let g:airline_theme = 'codedark'
+" let g:airline_theme = 'gruvbox'
 
 
 " configuring pipenv virtual environment path for YoucomepleteMe
@@ -253,13 +265,17 @@ vnoremap <C-d> "+d
 " set scb!
 
 " Working with silver searcher
-let g:ackprg = 'ag --nogroup --nocolor --column'
+" let g:ackprg = 'ag --vimgrep--nogroup --nocolor --column'
+" if executable('ag')
+"   let g:ackprg = 'ag --vimgrep'
+" endif
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 if executable('ag')
   " Use ag over grep "
   set grepprg=ag\ --nogroup\ --nocolor\ --column
+    " set grepprg = 'rg --vimgrep --type-not sql --smart-case'
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore "
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -269,7 +285,7 @@ if executable('ag')
 
   " bind \ (backward slash) to grep shortcut "
   command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-  nnoremap \ :Ag<SPACE>
+  nnoremap <leader>/ :Ag<SPACE>
 endif
 
 " bind Tab and Shift-Tab to cycle through buffers "
@@ -307,7 +323,7 @@ set cursorline
 highlight CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 
 " testing with new settings
-set hidden " helps to edit multiple buffers without saving
+" set hidden " helps to edit multiple buffers without saving
 " set showcmd
 " set ruler
 set nowrap "Dont wrap lines
@@ -350,7 +366,8 @@ nnoremap <C-g> :Rg<CR>
 
 let s:available_short_python = ':py3'
 " Check Python files with flake8 and pylint.
-let g:ale_linters = {'python': ['flake8', 'pycodestyle']}
+" let g:ale_linters = {'python': ['flake8', 'pycodestyle']}
+let g:ale_linters = {'python': ['pylint',]}
 let g:ale_fix_on_save = 1
 " Fix Python files with black, autopep8 and isort.
 let g:ale_fixers = {
@@ -369,3 +386,28 @@ let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 "
 " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'universal-ctags -R'
+" set grepformat=''
+
+set grepformat=%f:%l:%c:%m
+
+" ack.vim --- {{{
+
+" Use ripgrep for searching ⚡️
+" Options include:
+" --vimgrep -> Needed to parse the rg response properly for ack.vim
+" --type-not sql -> Avoid huge sql file dumps as it slows down the search
+" --smart-case -> Search case insensitive if all lowercase pattern, Search case sensitively otherwise
+let g:ackprg = 'rg --vimgrep --type-not sql --smart-case'
+
+" Auto close the Quickfix list after pressing '<enter>' on a list item
+" let g:ack_autoclose = 1
+
+" Any empty ack search will search for the work the cursor is on
+" let g:ack_use_cword_for_empty_search = 1
+
+" Don't jump to first match
+cnoreabbrev Ack Ack!
+
+" Maps <leader>/ so we're ready to type the search keyword
+nnoremap \ :Ack!<Space>
+" }}}
