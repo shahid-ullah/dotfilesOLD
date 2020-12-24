@@ -1,41 +1,52 @@
-" general configurations
+"general configurations
 set nocompatible              " required
 filetype off                  " required
 filetype plugin on
+runtime macros/matchit.vim
 
-" set the runtime path to include Vundle and initialize
+"set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" let Vundle manage Vundle, required
+"let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+"Django HTML
+Plugin 'tweekmonster/django-plus.vim'
+
+"Track the engine.
+Plugin 'SirVer/ultisnips'
+
+"Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
+
+"Plugin 'terryma/vim-multiple-cursors'
+Plugin 'raimondi/delimitmate'
 Plugin 'webdevel/tabulous'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-unimpaired'
 
 Plugin 'dense-analysis/ale'
-" Plugin 'hynek/vim-python-pep8-indent'
-" Plugin 'google/yapf'
+"Plugin 'hynek/vim-python-pep8-indent'
+"Plugin 'google/yapf'
 
 "Plugin 'neoclide/coc.nvim'
 "Plugin 'Valloric/YouCompleteMe'
 Plugin 'davidhalter/jedi-vim'
 
 Plugin 'airblade/vim-gitgutter'
-Plugin 'Yggdroot/indentLine'
+" Plugin 'Yggdroot/indentLine'
 Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'fisadev/vim-isort'
 
 Plugin 'preservim/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 
-
 Plugin 'plasticboy/vim-markdown'
 Plugin 'JamshedVesuna/vim-markdown-preview'
 
 "Plugin 'klen/python-mode'
 "Plugin 'webdevel/tabulous'
-Plugin 'tmhedberg/SimpylFold'
+"Plugin 'tmhedberg/SimpylFold'
 "Plugin 'vim-scripts/indentpython.vim'
 "Plugin 'hdima/python-syntax'
 "Plugin 'vim-syntastic/syntastic'
@@ -45,32 +56,30 @@ Plugin 'tpope/vim-commentary'
 
 " Plugin 'altercation/vim-colors-solarized'
 Plugin 'ryanoasis/vim-devicons'
-" Plugin 'ErichDonGubler/vim-sublime-monokai'
-" Plugin 'tomasiser/vim-code-dark'
+"Plugin 'ErichDonGubler/vim-sublime-monokai'
+"Plugin 'tomasiser/vim-code-dark'
 Plugin 'morhetz/gruvbox'
-" autocmd vimenter * ++nested colorscheme gruvbox
 "Plugin 'sheerun/vim-polyglot'
 
 Plugin 'junegunn/fzf', { 'do': './install --bin' }
 Plugin 'junegunn/fzf.vim'
 
-
 Plugin 'mileszs/ack.vim'
 Plugin 'ggreer/the_silver_searcher'
-" let g:ackprg = 'ag --nogroup --nocolor --column'
 
 Plugin 'simnalamburt/vim-mundo'
 Plugin 'christoomey/vim-tmux-navigator'
 "Plugin 'zhimsel/vim-stay'
-Plugin 'ervandew/supertab'
+"Plugin 'ervandew/supertab'
 "Plugin 'nathanaelkane/vim-indent-guides'
 
-Plugin 'bling/vim-airline'
+Plugin 'itchyny/lightline.vim'
+" Plugin 'bling/vim-airline'
 call vundle#end()            " required
 
 filetype plugin indent on    " required
 
-" General settings
+"General settings
 set number
 set relativenumber
 
@@ -79,36 +88,36 @@ syntax on
 set encoding=utf-8
 set incsearch
 set hlsearch
-" Find file in nested folder
-set path+=**
+
+set path+=** "Find file in nested folder
 set wildmenu
 set laststatus=2
-"Enable mouse
-set mouse=a
+set mouse=a "enable mouse"
 set title
 
-set expandtab
+set expandtab "convert tab to spaces"
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set colorcolumn=79
 
-" swap and backup file options
+"swap and backup file options
 set noswapfile
 set nobackup
 set nowb
-" set linebreak
+set nowrap "Dont wrap lines
+set linebreak
 set directory=$HOME/.vim/swp//
 set backupdir=~/.vim/.backup//
 
-" Enable persistent undo so that undo history persists across vim sessions
+"Enable persistent undo so that undo history persists across vim sessions
 set undofile
 set undodir=~/.vim/undodir
 
-" Highlight trailing whitespace
+"Highlight trailing whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
-" remove trailing whitespace automatically
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+"remove trailing whitespace automatically
+autocmd BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 autocmd BufWritePre * :%s/\s\+$//e
 
 "Move visual selection
@@ -116,18 +125,18 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 vnoremap . :normal.<CR>
 
-" stop preview window
-" set completeopt-=preview
-autocmd FileType python setlocal foldmethod=manual
+"stop preview window
+"set completeopt-=preview
 autocmd FileType python setlocal completeopt-=preview
 set foldmethod=manual
+"autocmd FileType python setlocal foldmethod=manual
+"autocmd BufRead,BufNewFile python set foldmethod=manual
 
 let mapleader = ","
 nnoremap \ ,
 nnoremap <silent> <leader>, :nohlsearch<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
-
 
 " Disable arrow keys
 no <down> <Nop>
@@ -145,7 +154,7 @@ vno <left> <Nop>
 vno <right> <Nop>
 vno <up> <Nop>
 
-let g:airline_powerline_fonts = 1
+" let g:airline_powerline_fonts = 1
 "start of NERDTree configurations
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -166,8 +175,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ }
 let g:NERDTreeGitStatusShowIgnored= 1
 
-
-" To add the proper PEP 8 indentation
+"To add the proper PEP 8 indentation
 " au BufNewFile,BufRead *.py
 "     \ set tabstop=4 |
 "     \ set softtabstop=4 |
@@ -215,10 +223,10 @@ endif
 nnoremap <leader>1 :-1read ~/.vim/templates/scm<CR>
 nnoremap <leader>2 :read ~/.vim/templates/ecm<CR>
 
-" inoremap <esc> <nop>
+"inoremap <esc> <nop>
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
-" Look for a tags file recursively in parent directories
+"Look for a tags file recursively in parent directories
 set tags=tags;
 
 nnoremap <F5> :MundoToggle<CR>
@@ -326,7 +334,6 @@ highlight CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred gu
 " set hidden " helps to edit multiple buffers without saving
 " set showcmd
 " set ruler
-set nowrap "Dont wrap lines
 set confirm "Display an confirmation dialog when closing a unsaved file
 
 nnoremap <F3> :source %<CR>
@@ -378,7 +385,7 @@ let g:ale_fixers = {
 let g:ale_echo_cursor=0
 
 " Set this. Airline will handle the rest.
-let g:airline#extensions#ale#enabled = 1
+" let g:airline#extensions#ale#enabled = 1
 
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 " let g:fzf_buffers_jump = 1
@@ -409,5 +416,17 @@ let g:ackprg = 'rg --vimgrep --type-not sql --smart-case'
 cnoreabbrev Ack Ack!
 
 " Maps <leader>/ so we're ready to type the search keyword
-nnoremap \ :Ack!<Space>
+nnoremap <leader>\ :Ack!<Space>
 " }}}
+" assuming you want to use snipmate snippet engine
+" ActivateAddons vim-snippets snipmate
+
+" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+" - https://github.com/Valloric/YouCompleteMe
+" - https://github.com/nvim-lua/completion-nvim
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
