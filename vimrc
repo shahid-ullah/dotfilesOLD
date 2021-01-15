@@ -1,81 +1,129 @@
+" Specify a directory for plugins
+" - For Neovim: stdpath('data') . '/plugged'
+" - Avoid using standard Vim directory names like 'plugin'
 "general configurations
 set nocompatible              " required
 filetype off                  " required
 filetype plugin on
 runtime macros/matchit.vim
 
-"set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
+" Make sure you use single quotes
 
-"let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
 "Django HTML
-Plugin 'tweekmonster/django-plus.vim'
+Plug 'tweekmonster/django-plus.vim'
 
 "Track the engine.
-Plugin 'SirVer/ultisnips'
+Plug 'sirver/ultisnips'
 
 "Snippets are separated from the engine. Add this if you want them:
-Plugin 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 
-"Plugin 'terryma/vim-multiple-cursors'
-Plugin 'raimondi/delimitmate'
-Plugin 'webdevel/tabulous'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-unimpaired'
+" Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
-Plugin 'dense-analysis/ale'
-"Plugin 'hynek/vim-python-pep8-indent'
-"Plugin 'google/yapf'
+" Provides insert mode autocompletion for quotes, brackets, etc
+Plug 'raimondi/delimitmate'
 
-"Plugin 'neoclide/coc.nvim'
+" setting the tabline including tab page levels
+Plug 'webdevel/tabulous'
+
+" Enable repeating supporting plugin maps with "."
+Plug 'tpope/vim-repeat'
+
+" Pairs of handly bracket mappings
+Plug 'tpope/vim-unimpaired'
+
+" Display tags in windows ordered by scope
+Plug 'majutsushi/tagbar'
+
+" check syntax asynchronously and fix files with Language Server Protocol (LSP)
+Plug 'dense-analysis/ale'
+
 "Plugin 'Valloric/YouCompleteMe'
-Plugin 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 
-Plugin 'airblade/vim-gitgutter'
-" Plugin 'Yggdroot/indentLine'
-Plugin 'jmcantrell/vim-virtualenv'
-Plugin 'fisadev/vim-isort'
+" Intellisense engine for vim8 and neovim
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plugin 'preservim/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+" Shows git diff markers in the sign column and stages/previews/undoes hunks and partial
+Plug 'airblade/vim-gitgutter'
 
-Plugin 'plasticboy/vim-markdown'
-Plugin 'JamshedVesuna/vim-markdown-preview'
+" plugin to display the indention levels with thin vertical lines
+Plug 'yggdroot/indentline'
+
+" Work with python virtualenvs
+Plug 'jmcantrell/vim-virtualenv'
+
+" sort python imports
+Plug 'fisadev/vim-isort'
+
+" Tree explorer
+Plug 'preservim/nerdtree'
+
+" NERDTree showing git status
+Plug 'xuyuanp/nerdtree-git-plugin'
+
+" vim markdown runtime files
+Plug 'tpope/vim-markdown'
+
+" Markdown vim mode
+" Plug 'plasticboy/vim-markdown'
+
+" Previewing markdown files in a browser
+" Plug 'JamshedVesuna/vim-markdown-preview'
+
+" Instant markdown previews for vim
+" Plug 'suan/vim-instant-markdown'
+
+" Python code folding for vim
+Plug 'tmhedberg/simpylfold'
+
+" comment stuf out
+Plug 'tpope/vim-commentary'
+
+" Add filetype icons to vim plugins
+Plug 'ryanoasis/vim-devicons'
+
+" colorscheme for vim
+Plug 'morhetz/gruvbox'
+
+" A command line fuzzy finder
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+
+" Search tool for vim
+Plug 'mileszs/ack.vim'
+
+" Code searching tool
+Plug 'ggreer/the_silver_searcher'
+
+
+" vim undo tree visualizer
+Plug 'simnalamburt/vim-mundo'
+
+" Seamless navigation between tmux panes and vim splits
+Plug 'christoomey/vim-tmux-navigator'
+
+" A light and configurable statusline/tabline plugin for vim
+Plug 'itchyny/lightline.vim'
+
 
 "Plugin 'klen/python-mode'
 "Plugin 'webdevel/tabulous'
-"Plugin 'tmhedberg/SimpylFold'
+"Plugin 'zhimsel/vim-stay'
+"Plugin 'ervandew/supertab'
 "Plugin 'vim-scripts/indentpython.vim'
 "Plugin 'hdima/python-syntax'
 "Plugin 'vim-syntastic/syntastic'
 "Plugin 'tomtom/tcomment_vim'
-Plugin 'tpope/vim-commentary'
-"Plugin 'godlygeek/tabular'
-
-" Plugin 'altercation/vim-colors-solarized'
-Plugin 'ryanoasis/vim-devicons'
 "Plugin 'ErichDonGubler/vim-sublime-monokai'
 "Plugin 'tomasiser/vim-code-dark'
-Plugin 'morhetz/gruvbox'
+"Plugin 'altercation/vim-colors-solarized'
 "Plugin 'sheerun/vim-polyglot'
+"Plugin 'godlygeek/tabular'
 
-Plugin 'junegunn/fzf', { 'do': './install --bin' }
-Plugin 'junegunn/fzf.vim'
-
-Plugin 'mileszs/ack.vim'
-Plugin 'ggreer/the_silver_searcher'
-
-Plugin 'simnalamburt/vim-mundo'
-Plugin 'christoomey/vim-tmux-navigator'
-"Plugin 'zhimsel/vim-stay'
-"Plugin 'ervandew/supertab'
-"Plugin 'nathanaelkane/vim-indent-guides'
-
-Plugin 'itchyny/lightline.vim'
-" Plugin 'bling/vim-airline'
-call vundle#end()            " required
+" Initialize plugin system
+call plug#end()
 
 filetype plugin indent on    " required
 
@@ -87,6 +135,7 @@ syntax enable
 syntax on
 set encoding=utf-8
 set incsearch
+" set nohlsearch
 set hlsearch
 
 set path+=** "Find file in nested folder
@@ -99,7 +148,7 @@ set expandtab "convert tab to spaces"
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set colorcolumn=79
+set colorcolumn=79,119
 
 "swap and backup file options
 set noswapfile
@@ -128,14 +177,15 @@ vnoremap . :normal.<CR>
 "stop preview window
 "set completeopt-=preview
 autocmd FileType python setlocal completeopt-=preview
-set foldmethod=manual
+" set foldmethod=manual
 "autocmd FileType python setlocal foldmethod=manual
-"autocmd BufRead,BufNewFile python set foldmethod=manual
+autocmd BufRead,BufNewFile python set colorcolumn=79,119
+
 
 let mapleader = ","
 nnoremap \ ,
 nnoremap <silent> <leader>, :nohlsearch<CR>
-nnoremap <leader>w :w<CR>
+nnoremap <leader>w :up<CR>
 nnoremap <leader>q :q<CR>
 
 " Disable arrow keys
@@ -154,8 +204,7 @@ vno <left> <Nop>
 vno <right> <Nop>
 vno <up> <Nop>
 
-" let g:airline_powerline_fonts = 1
-"start of NERDTree configurations
+" NERDTree configurations
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeDirArrowExpandable = '▸'
@@ -175,7 +224,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ }
 let g:NERDTreeGitStatusShowIgnored= 1
 
-"To add the proper PEP 8 indentation
+" python PEP 8 indentation
 " au BufNewFile,BufRead *.py
 "     \ set tabstop=4 |
 "     \ set softtabstop=4 |
@@ -185,25 +234,17 @@ let g:NERDTreeGitStatusShowIgnored= 1
 "     \ set fileformat=unix |
 "     \ set colorcolumn=79 |
 
-"" For full stack developemnt
+"" configuration for full stack developemnt
 au BufNewFile,BufRead *.js,*.html,*.css
+    \ set expandtab |
     \ set tabstop=2 |
     \ set shiftwidth=2 |
     \ set softtabstop=2 |
     \ set colorcolumn=90 |
 
 set background=dark
-" colorscheme solarized
-" colorscheme sublimemonokai
-" colorscheme codedark
-" set termguicolors
-" let g:gruvbox_termcolors=16
-set t_Co=256
+" set t_Co=256
 colorscheme gruvbox
-
-" let g:airline_theme = 'codedark'
-" let g:airline_theme = 'gruvbox'
-
 
 " configuring pipenv virtual environment path for YoucomepleteMe
 let pipenv_venv_path = system('pipenv --venv')
@@ -229,6 +270,7 @@ cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 "Look for a tags file recursively in parent directories
 set tags=tags;
 
+" plugin vim-mundo configuration
 nnoremap <F5> :MundoToggle<CR>
 
 " setting collected from Navigating Vim and Tmux Splits (Christopher)
@@ -257,7 +299,6 @@ else
   map <C-l> <C-w>l
 endif
 
-" let g:pymode_options_max_line_length = 120
 
 let vim_markdown_preview_github=1
 
@@ -269,16 +310,6 @@ vnoremap <C-d> "+d
 
 " nmap <F3> i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
 " imap <F3> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
-"scrollbind
-" set scb!
-
-" Working with silver searcher
-" let g:ackprg = 'ag --vimgrep--nogroup --nocolor --column'
-" if executable('ag')
-"   let g:ackprg = 'ag --vimgrep'
-" endif
-" bind K to grep word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 if executable('ag')
   " Use ag over grep "
@@ -296,23 +327,21 @@ if executable('ag')
   nnoremap <leader>/ :Ag<SPACE>
 endif
 
-" bind Tab and Shift-Tab to cycle through buffers "
-" nnoremap <Tab> :bnext<CR>
-" nnoremap <S-Tab> :bprevious<CR>
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " For comment in django template
 autocmd FileType htmldjango setlocal commentstring={#\ %s\ #}
 
-" let g:indent_guides_enable_on_vim_startup = 1
+" plugin simpylfold configurations
 let g:SimpylFold_fold_import = 0
-
-set foldenable "Enable folding
-set foldlevelstart=10 "Open most of the folds by default. If set to 0, all folds will be closed.
-set foldnestmax=10 "Folds can be nested. Setting a max value protects you from too many folds.
 
 nnoremap <leader>z zfip
 vnoremap <leader>z zf
 nnoremap <Space> za
+
+set foldenable "Enable folding
+set foldlevelstart=10 "Open most of the folds by default. If set to 0, all folds will be closed.
+set foldnestmax=10 "Folds can be nested. Setting a max value protects you from too many folds.
 
 augroup AutoSaveFolds
   autocmd!
@@ -336,18 +365,16 @@ highlight CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred gu
 " set ruler
 set confirm "Display an confirmation dialog when closing a unsaved file
 
-nnoremap <F3> :source %<CR>
 
 " fzf configurations
-
 nmap <Leader>l :BLines<CR>
 nmap <Leader>L :Lines<CR>
 
-" File Finder
+" fzf File Finder
 nmap <Leader>F :GFiles<CR>
 nmap <Leader>f :Files<CR>
 
-" Buffer Finder
+" fzf Buffer Finder
 nmap <Leader>b :Buffers<CR>
 nmap <Leader>h :History<CR>
 
@@ -360,9 +387,6 @@ inoremap <C-b> <Esc><C-^>
 
 autocmd BufReadPost *.doc,*.docx,*.rtf,*.odp,*.odt silent %!pandoc "%" -tplain -o /dev/stdout
 
-" colorscheme wombat256
-" highlight Normal guibg=black guifg=white
-" set background=dark
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
@@ -371,26 +395,27 @@ command! -bang -nargs=* Rg
   \   <bang>0)
 nnoremap <C-g> :Rg<CR>
 
+" plugin ale configuration
+" install all required packages to global python version that vim was compiled with
+" check compiled python version
+" :py3 import sys; print(sys.version)
+
 let s:available_short_python = ':py3'
 " Check Python files with flake8 and pylint.
 " let g:ale_linters = {'python': ['flake8', 'pycodestyle']}
-let g:ale_linters = {'python': ['pylint',]}
 let g:ale_fix_on_save = 1
+let g:ale_linters = {'python': ['pylint', 'flake8']}
 " Fix Python files with black, autopep8 and isort.
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['isort'],
+\   'python': ['black',],
 \}
 
-let g:ale_echo_cursor=0
 
-" Set this. Airline will handle the rest.
-" let g:airline#extensions#ale#enabled = 1
-
+" plugin fzf configuration
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 " let g:fzf_buffers_jump = 1
-"
-"
+
 " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'universal-ctags -R'
 " set grepformat=''
@@ -398,7 +423,6 @@ let g:fzf_tags_command = 'universal-ctags -R'
 set grepformat=%f:%l:%c:%m
 
 " ack.vim --- {{{
-
 " Use ripgrep for searching ⚡️
 " Options include:
 " --vimgrep -> Needed to parse the rg response properly for ack.vim
@@ -418,6 +442,7 @@ cnoreabbrev Ack Ack!
 " Maps <leader>/ so we're ready to type the search keyword
 nnoremap <leader>\ :Ack!<Space>
 " }}}
+
 " assuming you want to use snipmate snippet engine
 " ActivateAddons vim-snippets snipmate
 
@@ -430,3 +455,41 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+" practice with Learn vimscript the hard way
+" inoremap <c-d> <esc>ddO
+" inoremap <c-u> <esc>gUiwA
+
+nnoremap <leader>ev :vsplit $HOME/.vimrc<cr>
+nnoremap <leader>sv :source $HOME/.vimrc<cr>
+nnoremap <F3> :source $HOME/.vimrc<cr>
+nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
+nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
+" nnoremap H ^
+" nnoremap L $
+"Delete inside next parentheses
+onoremap in( :<c-u>normal! f(vi(<cr>
+"Delete inside last parentheses
+onoremap il( :<c-u>normal! F)vi(<cr>
+inoremap <c-p> <esc>gUiwA<space>
+
+
+" Shortcuts for moving between tabs.
+nnoremap th  :tabfirst<CR>
+nnoremap tk  :tabnext<CR>
+nnoremap tj  :tabprev<CR>
+nnoremap tl  :tablast<CR>
+nnoremap tt  :tabedit<Space>
+nnoremap tn  :tabnext<Space>
+nnoremap tm  :tabm<Space>
+nnoremap td  :tabclose<CR>
+
+" Alternatively use
+"nnoremap th :tabnext<CR>
+"nnoremap tl :tabprev<CR>
+"nnoremap tn :tabnew<CR>
+
+" plugin tagbar configurations
+nmap <F8> :TagbarToggle<CR>
+nnoremap <leader>v :execute "rightbelow vsplit " . bufname("#")<CR>
+" nnoremap <leader>s :execute "rightbelow split " . bufname("#")<CR>
