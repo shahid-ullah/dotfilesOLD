@@ -63,15 +63,15 @@ parse_git_branch() {
 }
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]\n$(parse_git_branch)\[\033[01;32m\]\$\[\033[00m\] '
-    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\n$(parse_git_branch)\[\033[01;32m\]\$\[\033[00m\] '
+    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]\n$(parse_git_branch)\[\033[01;32m\]\$\[\033[00m\] '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\n$(parse_git_branch)\[\033[01;32m\]\$\[\033[00m\] '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(parse_git_branch)\$ '
 fi
 
 # if [ "$color_prompt" = yes ]; then
 #     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\n\[\033[01;32m\]\$\[\033[00m\] '
-# #    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
 # else
 #     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 # fi
@@ -150,13 +150,14 @@ unset __conda_setup
 
 # Custom commands
 # alias ctags='ctags -R'
-alias ctags='universal-ctags -R'
+alias ctags='universal-ctags -R --exclude=.venv --exclude='*.js' --exclude='*.html' --exclude='*.css' --exclude='*.svg' --exclude='*.xml''
+
 
 eval 'dircolors ~/.dircolors' > /dev/null
 alias python='python3'
 alias cd1='cd ..'
 alias cd2='cd1 ..'
-export CDPATH=.:~:~/Desktop/Desktop:~/BlogContent:~/Desktop/Desktop/coding
+export CDPATH=.:~:~/Desktop/Tappware
 # export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 export FZF_DEFAULT_COMMAND='rg --files'
 alias cd1="cd .."
@@ -176,3 +177,4 @@ alias migrate="python manage.py migrate"
 alias shell="python manage.py shell"
 alias shellplus="python manage.py shell_plus"
 alias activate='source .venv/bin/activate'
+alias redis-server='redis-server --daemonize yes'
