@@ -12,7 +12,6 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" Plugin 'davidhalter/jedi-vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'scrooloose/nerdtree'
 Plugin 'junegunn/fzf'
@@ -31,18 +30,14 @@ Plugin 'ryanoasis/vim-devicons'
 Plugin 'tpope/vim-commentary'
 Plugin 'xuyuanp/nerdtree-git-plugin'
 " Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-" Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'neoclide/coc.nvim'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'tweekmonster/django-plus.vim'
-Plugin 'sainnhe/gruvbox-material'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'fisadev/vim-isort'
-Plugin 'lifepillar/vim-solarized8'
 Plugin 'honza/vim-snippets'
 Plugin 'SirVer/ultisnips'
-" Plugin 'google/yapf'
 Plugin 'psf/black'
 
 call vundle#end()            " required
@@ -91,7 +86,7 @@ set undofile
 " Configuration: Custom
 let mapleader = ","
 nnoremap \ ,
-nnoremap <silent> <leader>, :nohlsearch<CR>
+nnoremap <silent> <leader><leader> :nohlsearch<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
 " nmap <F3> i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
@@ -104,19 +99,18 @@ set backupdir=~/.vim/.backup//
 set undodir=~/.vim/undodir
 
 "Enter to go to EOF and backspace to go to start
-" nnoremap <CR> G
+nnoremap <CR> G
 nnoremap <BS> gg
+inoremap <BS> <c-w>
 
 " copy and pasting from system clipboard
 set clipboard=unnamed
 inoremap <C-v> <ESC>"+p<ESC>
 vnoremap <C-c> "+y
 vnoremap <C-d> "+d
-" nnoremap <leader>ev :vsplit $HOME/.vimrc<cr>
 
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
-" nnoremap <leader>sv :source $HOME/.vimrc<cr>
 
 "Highlight trailing whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
@@ -323,24 +317,13 @@ let g:ale_linters = {
 \   'javascript': ['eslint'],
 \}
 let g:ale_fix_on_save = 1
-let g:ale_linters = {'python': ['pylint', 'flake8']}
-" let g:ale_linters = {'python': ['flake8']}
+" let g:ale_linters = {'python': ['pylint', 'flake8']}
 " Fix Python files with black, autopep8 and isort.
 " \   'python': [''],
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
 \}
-" let g:ale_echo_cursor = 0
-function! SilenceWarningAle()
-let g:ale_echo_cursor=0
-endfunction
-function! EnableWarningAle()
-let g:ale_echo_cursor=1
-endfunction
-nnoremap \sw :call SilenceWarningAle()<CR>
-nnoremap \ew :call EnableWarningAle()<CR>
-
 
 " Configuration: Ack.vim
 " ack.vim --- {{{
@@ -612,3 +595,5 @@ autocmd FileType javascript :iabbrev <buffer> iff if ()<left>
 autocmd BufWritePre *.py execute ':Black'
 autocmd BufWritePre *.py execute ':Isort'
 let g:black_skip_string_normalization = 1
+
+" Map Ctrl-Backspace to delete the previous word in insert mode.
