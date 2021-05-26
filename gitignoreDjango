@@ -10,9 +10,10 @@ Session.vim
 __pycache__
 db.sqlite3
 local_settings.py
-media
+media/
+mediafiles/
 static-cdn/
-staticfiles
+staticfiles/
 
 # Flask stuff
 instance/
