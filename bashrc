@@ -157,7 +157,7 @@ eval 'dircolors ~/.dircolors' > /dev/null
 alias python='python3'
 alias cd1='cd ..'
 alias cd2='cd1 ..'
-export CDPATH=.:~:~/Desktop/Tappware
+export CDPATH=.:~:~/Desktop/Tappware:~/Desktop/Desktop
 # export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 export FZF_DEFAULT_COMMAND='rg --files'
 alias cd1="cd .."
@@ -178,3 +178,14 @@ alias shell="python manage.py shell"
 alias shellplus="python manage.py shell_plus"
 alias activate='source .venv/bin/activate'
 alias redis-server='redis-server --daemonize yes'
+
+
+# Django development environment variable
+
+export DJANGO_DB_NAME='bokshi_chat'
+export DJANGO_DB_USER='shahid'
+export DJANGO_DB_PASSWORD='password'
+export DJANGO_DB_HOST='127.0.0.1'
+export DJANGO_DB_PORT='3306'
+source "$HOME/.cargo/env"
+alias nv="nvim"
