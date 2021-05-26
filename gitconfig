@@ -2,15 +2,17 @@
 	email = shahid.ice.nstu@gmail.com
 	name = shahid
 [core]
-	editors = vim
-	editor = vim
+	editors = nvim
+	editor = nvim
 [alias]
 	co = checkout
 	br = branch
 	ci = commit
 	st = status
-	last = log -1 HEAD
-	clog = log --oneline --graph
+	last = log -10 HEAD --oneline --graph --all
+	clog = log --oneline --graph --all
+    last = diff HEAD^ HEAD --color-words
+    sdf = diff --color-words
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -20,3 +22,7 @@
 	helper = cache --timeout 300
 [color]
 	ui = true
+[init]
+	defaultBranch = main
+[pull]
+	rebase = false
