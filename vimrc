@@ -13,6 +13,13 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'morhetz/gruvbox'
+Plugin 'tomasr/molokai'
+Plugin 'dracula/vim'
+" Plugin 'joshdick/onedark.vim'
+Plugin 'bratpeki/truedark-vim'
+Plugin 'savq/melange'
+
+
 Plugin 'scrooloose/nerdtree'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
@@ -34,11 +41,23 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'neoclide/coc.nvim'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'tweekmonster/django-plus.vim'
-Plugin 'sheerun/vim-polyglot'
 Plugin 'fisadev/vim-isort'
 Plugin 'honza/vim-snippets'
 Plugin 'SirVer/ultisnips'
 Plugin 'psf/black'
+Plugin 'pineapplegiant/spaceduck'
+Plugin 'tomasiser/vim-code-dark'
+Plugin 'joshdick/onedark.vim'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'mitermayer/vim-prettier'
+Plugin 'pangloss/vim-javascript'
+Plugin 'nvim-lua/popup.nvim'
+Plugin 'nvim-lua/plenary.nvim'
+Plugin 'nvim-telescope/telescope.nvim'
+
+" playing with vim
+Plugin 'senran101604/neotrix.vim'
+
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -86,7 +105,7 @@ set undofile
 " Configuration: Custom
 let mapleader = ","
 nnoremap \ ,
-nnoremap <silent> <leader><leader> :nohlsearch<CR>
+nnoremap <silent> <leader>, :nohlsearch<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
 " nmap <F3> i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
@@ -101,7 +120,7 @@ set undodir=~/.vim/undodir
 "Enter to go to EOF and backspace to go to start
 nnoremap <CR> G
 nnoremap <BS> gg
-inoremap <BS> <c-w>
+" inoremap <BS> <c-w>
 
 " copy and pasting from system clipboard
 set clipboard=unnamed
@@ -114,7 +133,7 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 "Highlight trailing whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
-"remove trailing whitespace automatically
+""remove trailing whitespace automatically
 autocmd BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 autocmd BufWritePre * :%s/\s\+$//e
 
@@ -200,20 +219,19 @@ inoremap <c-u> <esc>bgUiwea
 "nnoremap <leader>2 :read ~/.vim/templates/ecm<CR>
 
 augroup AutoSaveFolds
-autocmd!
-" view files are about 500 bytes
-" bufleave but not bufwinleave captures closing 2nd tab
-" nested is needed by bufwrite* (if triggered via other autocmd)
-autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
-autocmd BufWinEnter ?* silent! loadview
+    autocmd!
+    " view files are about 500 bytes
+    " bufleave but not bufwinleave captures closing 2nd tab
+    " nested is needed by bufwrite* (if triggered via other autocmd)
+    autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
+    autocmd BufWinEnter ?* silent! loadview
 augroup end
 
 "cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 
 " Configuration: Plugin gruvbox
-set background=dark
-colorscheme gruvbox
+colorscheme onedark
 
 
 " Configuration: Plugin nerdtree
@@ -240,19 +258,19 @@ nmap <S-t> :Tags<CR>
 let g:fzf_tags_command = 'universal-ctags -R'
 
 if executable('ag')
-" Use ag over grep "
-set grepprg=ag\ --nogroup\ --nocolor\ --column
-" set grepprg = 'rg --vimgrep --type-not sql --smart-case'
+    " Use ag over grep "
+    set grepprg=ag\ --nogroup\ --nocolor\ --column
+    " set grepprg = 'rg --vimgrep --type-not sql --smart-case'
 
-" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore "
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore "
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
-" ag is fast enough that CtrlP doesn't need to cache "
-let g:ctrlp_use_caching = 0
+    " ag is fast enough that CtrlP doesn't need to cache "
+    let g:ctrlp_use_caching = 0
 
-" bind \ (backward slash) to grep shortcut "
-command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-nnoremap <leader>/ :Ag<SPACE>
+    " bind \ (backward slash) to grep shortcut "
+    command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+    nnoremap <leader>/ :Ag<SPACE>
 endif
 
 
@@ -313,11 +331,11 @@ autocmd FileType htmldjango setlocal commentstring={#\ %s\ #}
 
 " Check Python files with flake8 and pylint.
 let g:ale_linters = {
-\   'python': ['pylint', 'flake8', 'pycodestyle', 'pydocstyle'],
+\   'python': ['pylint', 'flake8'],
 \   'javascript': ['eslint'],
 \}
 let g:ale_fix_on_save = 1
-" let g:ale_linters = {'python': ['pylint', 'flake8']}
+let g:ale_linters = {'python': ['pylint', 'flake8']}
 " Fix Python files with black, autopep8 and isort.
 " \   'python': [''],
 let g:ale_fixers = {
@@ -380,35 +398,35 @@ nmap <F8> :TagbarToggle<CR>
 
 " setting collected from Navigating Vim and Tmux Splits (Christopher)
 if exists('$TMUX')
-function! TmuxOrSplitSwitch(wincmd, tmuxdir)
-let previous_winnr = winnr()
-silent! execute "wincmd " . a:wincmd
-if previous_winnr == winnr()
-  call system("tmux select-pane -" . a:tmuxdir)
-  redraw!
-endif
-endfunction
+    function! TmuxOrSplitSwitch(wincmd, tmuxdir)
+        let previous_winnr = winnr()
+        silent! execute "wincmd " . a:wincmd
+        if previous_winnr == winnr()
+          call system("tmux select-pane -" . a:tmuxdir)
+          redraw!
+        endif
+    endfunction
 
-let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
-let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
-let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
+    let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
+    let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
+    let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
 
-nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<cr>
-nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
-nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<cr>
-nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<cr>
+    nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<cr>
+    nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
+    nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<cr>
+    nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<cr>
 else
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+    map <C-h> <C-w>h
+    map <C-j> <C-w>j
+    map <C-k> <C-w>k
+    map <C-l> <C-w>l
 endif
 
 " Enable resize vim spilits inside tmux using mouse
 if has("mouse_sgr")
-set ttymouse=sgr
+    set ttymouse=sgr
 else
-set ttymouse=xterm2
+    set ttymouse=xterm2
 end
 
 
@@ -434,9 +452,9 @@ set shortmess+=c
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
 " Recently vim can merge signcolumn and number column into one
-set signcolumn=number
+    set signcolumn=number
 else
-set signcolumn=yes
+    set signcolumn=yes
 endif
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -465,14 +483,14 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                           \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -488,10 +506,10 @@ endif
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+" nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
 " xmap <leader>f  <Plug>(coc-format-selected)
@@ -502,53 +520,53 @@ autocmd!
 " Setup formatexpr specified filetype(s).
 autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
 " Update signature help on jump placeholder.
-autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+" autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+" xmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
+" nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+" nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
+" xmap if <Plug>(coc-funcobj-i)
+" omap if <Plug>(coc-funcobj-i)
+" xmap af <Plug>(coc-funcobj-a)
+" omap af <Plug>(coc-funcobj-a)
+" xmap ic <Plug>(coc-classobj-i)
+" omap ic <Plug>(coc-classobj-i)
+" xmap ac <Plug>(coc-classobj-a)
+" omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
+" if has('nvim-0.4.0') || has('patch-8.2.0750')
+" nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+" nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+" inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+" inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+" vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+" vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+" endif
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
+" nmap <silent> <C-s> <Plug>(coc-range-select)
+" xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
+" command! -nargs=0 Format :call CocAction('format')
 
 " Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+" command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+" command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
@@ -556,21 +574,21 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+" nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions.
+" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands.
+" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document.
+" nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" " Search workspace symbols.
+" nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" " Do default action for next item.
+" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" " Resume latest coc list.
+" nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 nnoremap <tab> %
 vnoremap <tab> %
 
@@ -588,12 +606,20 @@ nnoremap <leader>r <c-w><c-r>
 " let maplocalleader = "\\"
 " let g:ale_disable_lsp = 1
 " let g:vim_isort_python_version = 'python3'
-autocmd FileType python     :iabbrev <buffer> iff if:<left>
-autocmd FileType javascript :iabbrev <buffer> iff if ()<left>
+" autocmd FileType python     :iabbrev <buffer> iff if:<left>
+" autocmd FileType javascript :iabbrev <buffer> iff if ()<left>
 
 " Configuration: Plugin Black
-autocmd BufWritePre *.py execute ':Black'
+" autocmd BufWritePre *.py execute ':Black'
+nnoremap <F9> :Black<CR>
 autocmd BufWritePre *.py execute ':Isort'
 let g:black_skip_string_normalization = 1
 
-" Map Ctrl-Backspace to delete the previous word in insert mode.
+
+" map <silent> <C-F2> :if &guioptions =~# 'T' <Bar>
+"             \set guioptions-=T <Bar>
+"             \set guioptions-=m <bar>
+"             \else <Bar>
+"             \set guioptions+=T <Bar>
+"             \set guioptions+=m <Bar>
+"             \endif<CR>
