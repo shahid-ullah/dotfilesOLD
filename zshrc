@@ -17,7 +17,7 @@ export ZSH="/home/shahid/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
 # ZSH_THEME="agnoster"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="powerlevel10k/powerlevel10k"
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -114,19 +114,52 @@ alias lh='ls -ld .?*'
 alias redis-server='redis-server --daemonize yes'
 bindkey -v
 
-# fpath=($fpath "/home/shahid/.zfunctions")
+fpath=($fpath "/home/shahid/.zfunctions")
 
-#   # Set Spaceship ZSH as a prompt
-#   autoload -U promptinit; promptinit
-#   prompt spaceship
+  # Set Spaceship ZSH as a prompt
+  autoload -U promptinit; promptinit
+  prompt spaceship
 
-# ZSH_THEME="spaceship"
+ZSH_THEME="spaceship"
 # ZSH_THEME="powerlevel10k"
-# SPACESHIP_PROMPT_ADD_NEWLINE=false
-# SPACESHIP_VI_MODE_SHOW=false
-# SPACESHIP_USER_SHOW=always
+SPACESHIP_PROMPT_ADD_NEWLINE=false
+SPACESHIP_VI_MODE_SHOW=false
+SPACESHIP_USER_SHOW=always
+
+export DJANGO_DB_NAME='bokshi-chat'
+export DJANGO_DB_USER='shahid'
+export DJANGO_DB_PASSWORD='password'
+export DJANGO_DB_HOST='127.0.0.1'
+export DJAGNO_DB_PORT='3306'
+
+export DJANGO_DB_NAME_DEV='bokshi_chat_dev'
+export DJANGO_DB_USER_DEV='shahid'
+export DJANGO_DB_PASSWORD_DEV='password'
+export DJANGO_DB_HOST_DEV='127.0.0.1'
+export DJAGNO_DB_PORT_DEV='3306'
+
+alias runserver="python manage.py runserver"
+alias makemigrations="python manage.py makemigrations"
+alias createsuperuser="python manage.py createsuperuser"
+alias migrate="python manage.py migrate"
+alias shell="python manage.py shell"
+alias shellplus="python manage.py shell_plus"
+alias activate='source .venv/bin/activate'
+alias nv="nvim"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# append
+# path+=('$HOME/local/nvim/bin', $path)
+# or prepend
+# path=('/home/david/pear/bin' $path)
+# export to sub-processes (make it inherited by child processes)
+# export PATH
+
+source ~/.fzf/shell/key-bindings.zsh
+source ~/.fzf/shell/completion.zsh
+
+export PATH=$HOME/local/nvim/bin:$PATH
