@@ -1,11 +1,16 @@
-set number
-set relativenumber
-
 "general configurations
 set nocompatible              " required
 filetype off                  " required
 filetype plugin on
 let g:polyglot_disabled = ['autoindent']
+" Ignore files
+set wildignore+=*.pyc
+set wildignore+=*_build/*
+set wildignore+=**/coverage/*
+set wildignore+=**/node_modules/*
+set wildignore+=**/android/*
+set wildignore+=**/ios/*
+set wildignore+=**/.git/*
 
 " - Avoid using standard Vim directory names like 'plugin'
 let pluginPath = stdpath('data') . '/plugged'
@@ -16,7 +21,9 @@ Plug 'raimon49/requirements.txt.vim'
 
 " colorscheme
 " Plug 'morhetz/gruvbox'
-Plug 'joshdick/onedark.vim'
+" Plug 'joshdick/onedark.vim'
+
+Plug 'navarasu/onedark.nvim'
 " Plug 'savq/melange'
 Plug 'gruvbox-community/gruvbox'
 " Plug 'wojciechkepka/bogster'
@@ -39,11 +46,13 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'ThePrimeagen/harpoon'
 
 " Plug 'airblade/vim-rooter'
 " Plug 'nvim-lua/completion-nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
+Plug 'glepnir/lspsaga.nvim'
 Plug 'w0rp/ale'
 " Plug 'neoclide/coc.nvim'
 
@@ -72,7 +81,6 @@ Plug 'puremourning/vimspector'
 
 Plug 'tpope/vim-fugitive'
 
-
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -80,7 +88,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'jmcantrell/vim-virtualenv'
 Plug 'fisadev/vim-isort'
 Plug 'psf/black'
-Plug 'tweekmonster/django-plus.vim'
 
 Plug 'honza/vim-snippets'
 Plug 'sirver/ultisnips'
@@ -108,24 +115,42 @@ Plug 'tpope/vim-markdown'
 
 " Plug 'kyazdani42/nvim-web-devicons' " for file icons
 " Plug 'kyazdani42/nvim-tree.lua'
+Plug 'nacro90/numb.nvim'
+Plug 'ray-x/aurora'
+" Plug 'justinmk/vim-sneak'
 
-Plug 'tjdevries/colorbuddy.vim'
-Plug 'tjdevries/gruvbuddy.nvim'
+" Plug 'vifm/vifm.vim'
+" Plug 'w0ng/vim-hybrid'
+" Plug 'easymotion/vim-easymotion'
+Plug 'phaazon/hop.nvim'
+
+" Plug 'sonph/onehalf'
+
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-abolish'
+Plug 'tweekmonster/django-plus.vim'
+
+" Plug 'adelarsq/vim-devicons-emoji'
+Plug 'abecodes/tabout.nvim'
+
 call plug#end()
 
 
-" Configuration: General
+" Configurations: General
 filetype plugin indent on    " required
 set number
 set relativenumber
-
+" set tm=500
 syntax enable
 syntax on
 set encoding=utf-8
+set ignorecase
 set incsearch
 set hlsearch
+set smartcase
 
 set path+=** "Find file in nested folder
+set wildmode=longest,list,full
 set wildmenu
 set laststatus=2
 set mouse=a "enable mouse"
@@ -136,8 +161,11 @@ set expandtab " When enabled, causes spaces to be used in place of tab character
 set tabstop=4 " Specifies the width of a tab character (number of columns).
 set softtabstop=4 " When enabled, fine tunes the amount of whitespaces to be inserted.
                   " Determines the amount of whitespace to insert or remove using the
+set smarttab
 set shiftwidth=4 " indentation commands in normal mode.
 set colorcolumn=79,119
+set showcmd
+set showmode
 
 "swap and backup file options
 set noswapfile
@@ -156,12 +184,20 @@ set undofile
 
 set splitright
 set splitbelow
+set fillchars+=vert:\│
+
+set completeopt=menuone,noinsert,noselect
+" Avoid showing message extra message when using completion
+set shortmess+=c
 
 
-" Configuration: Custom
+" Configurations: Custom
 nnoremap <SPACE> <Nop>
 let mapleader=" "
-nnoremap <silent> <leader>h :nohlsearch<CR>
+nnoremap <silent> Q <nop>
+set scrolloff=6
+imap ii <ESC>
+nnoremap <silent> <leader>hh :nohlsearch<CR>
 nnoremap <silent> <leader>w :w<CR>
 nnoremap <silent> <leader>q :q<CR>
 
@@ -169,7 +205,7 @@ set directory=$HOME/.vim/swp//
 set backupdir=~/.vim/.backup//
 
 nnoremap <silent> <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
 set undodir=~/.vim/undodir "Enable persistent undo so that undo history persists across vim sessions
 
@@ -209,6 +245,11 @@ vno <left> <Nop>
 vno <right> <Nop>
 vno <up> <Nop>
 
+noremap <silent> <C-up> :resize +2<CR>
+noremap <silent> <C-down> :resize -2<CR>
+noremap <silent> <C-Left> :vertical resize +2<CR>
+noremap <silent> <C-Right> :vertical resize -2<CR>
+
 """ configuration for full stack developemnt
 au BufNewFile,BufRead *.js,*.html,*.css
     \ set expandtab |
@@ -225,22 +266,27 @@ augroup END
 "Look for a tags file recursively in parent directories
 set tags=tags;
 
-"Jump back to last edited buffer
-nnoremap <C-b> <C-^>
-inoremap <C-b> <Esc><C-^>
+" inoremap <C-b> <Esc><C-^>
 "Delete inside next parentheses
-onoremap in( :<c-u>normal! f(vi(<cr>
+" onoremap in( :<c-u>normal! f(vi(<cr>
 "Delete inside last parentheses
-onoremap il( :<c-u>normal! F)vi(<cr>
+" onoremap il( :<c-u>normal! F)vi(<cr>
 
-"" snippet reading mapping
-"" autocmd BufNewFile base.html 0r ~/.vim/templates/base.html
-"" nnoremap ,im :-1read ~/.vim/templates/hacker<CR>
-"" nnoremap ,html :-1read ~/.vim/templates/base.html<CR>
-"" nnoremap ,scm :-1read ~/.vim/templates/scm<CR>
-"" nnoremap ,ecm :-1read ~/.vim/templates/ecm<CR>
-"nnoremap <leader>1 :-1read ~/.vim/templates/scm<CR>
-"nnoremap <leader>2 :read ~/.vim/templates/ecm<CR>
+" Toggle quickfix list
+function! QuickFix_toggle()
+    for i in range(1, winnr('$'))
+        let bnum = winbufnr(i)
+        if getbufvar(bnum, '&buftype') == 'quickfix'
+            cclose
+            return
+        endif
+    endfor
+
+    copen
+endfunction
+
+nnoremap <silent> <leader>c :call QuickFix_toggle()<cr>
+
 
 augroup AutoSaveFolds
   autocmd!
@@ -252,16 +298,15 @@ augroup AutoSaveFolds
 augroup end
 
 
-" Configuration: Plugin nerdtree
+" Configurations: Plugin nerdtree
 map <silent> <leader>n :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
 
-" Configuration: Plugin fzf.vim
+" Configurations: Plugin fzf.vim
 let g:fzf_tags_command = 'universal-ctags -R'
-" Border color
 let g:fzf_layout = {'up': '~90%', 'window': {'width': 0.8, 'height': 0.8, 'yoffset': 0.5, 'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp'}}
 let $FZF_DEFAULT_OPTS = "--info=inline"
 let $FZF_DEFAULT_COMMAND = 'rg --files'
@@ -279,23 +324,12 @@ nmap <silent> <Leader>fh :History<CR>
 nmap <silent> <Leader>ft :BTags<CR>
 nmap <silent> <leader>tt :Tags<CR>
 
-nmap <silent> <leader>fd :lua require('init').search_dotfiles()<CR>
-nmap <silent> <leader>fp :Telescope find_files cwd=/home/shahid/brainstorming/<CR>
-" nmap <silent> <leader>ff :Telescope find_files<CR>
-" nmap <silent> <Leader>fb :Telescope buffers<CR>
-
 if executable('ag')
   " Use ag over grep "
   set grepprg=ag\ -w\ --nogroup\ --nocolor\ --column
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore "
-  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  " ag is fast enough that CtrlP doesn't need to cache "
-  " let g:ctrlp_use_caching = 0
   command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-  " command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '', { 'options': '--bind ctrl-a:select-all,ctrl-d:deselect-all' }, <bang>0)
   nnoremap <leader>g :Ag<SPACE>
 endif
-
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -306,11 +340,13 @@ command! -bang -nargs=* Rg
 nnoremap <C-g> :Rg!<CR>
 
 
-" Configuration: Plugin vim-ariline-themes
+" Configurations: Plugin vim-ariline-themes
 let g:airline_theme='simple'
+" let g:airline_statusline_ontop=1
+" let g:airline#extensions#tabline#enabled = 1
 
 
-"Configuration: Plugin nerdtree-git-plugin
+"Configurations: Plugin nerdtree-git-plugin
 let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
@@ -326,29 +362,25 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 let g:NERDTreeGitStatusShowIgnored= 1
 
 
-" Congiguration vim-mundo
+" Congigurations: vim-mundo
 "nnoremap <F5> :MundoToggle<CR>
 
 
-" For comment in django template
-autocmd FileType htmldjango setlocal commentstring={#\ %s\ #}
-
-
-" Configuration: Plugin ale
+" Configurations: Plugin ale
 " install all required packages to global python version that vim was compiled with
 " check compiled python version
 " :py3 import sys; print(sys.version)
 
 " Check Python files with flake8 and pylint.
 let g:ale_linters = {'python': [], 'javascript': []}
-" let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 1
 " Fix Python files with black, autopep8 and isort.
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \}
 
 
-" Configuration: Ack.vim
+" Configurations: Ack.vim
 
 " Use ripgrep for searching ⚡️
 " Options include:
@@ -373,55 +405,54 @@ nnoremap <silent> <leader>a :Ack!<Space>
 " Configuration: UltiSnippets
 
 
-" Configuraion: Plugin tagbar
+" Configuraions: Plugin tagbar
 nmap <F8> :TagbarToggle<CR>
 
 
-" Configuration: Plugin Black
+" Configurations: Plugin Black
 " autocmd BufWritePre *.py execute ':Black'
 let g:black_skip_string_normalization = 1
 nnoremap <silent> <F9> :Black<CR>
 
 
-" Configuration: plugin isort
+" Configurations: plugin isort
 autocmd BufWritePre *.py execute ':Isort'
 
 
-" Configuration: Experiment
+" Configurations: Experiment
 
 " practice with Learn vimscript the hard way
-inoremap <c-u> <esc>gUiwA
+" inoremap <c-u> <esc>gUiwA
 
 
-" Configuration: Plugin gruvbox
+" Configuration: colorschemes
+" general
 set termguicolors
+highlight cursorlinenr cterm=NONE
+highlight Normal guibg=NONE ctermbg=NONE
+highlight LineNr guibg=NONE ctermbg=NONE
+highlight VertSplit gui=NONE guibg=NONE guifg=#444444 cterm=NONE ctermbg=NONE ctermfg=gray
+
+" gruvbox specific
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
 let g:gruvbox_invert_selection='0'
-" colorscheme gruvbox
-" colorscheme xcodedark
-" colorscheme PaperColor
-colorscheme onedark
-" colorscheme gruvbuddy
-" colorscheme solarized8
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_italic=1
 
+
+" onedark specific
+let g:onedark_style = 'darker'
+let g:onedark_transparent_background = 1
+let g:onedark_termcolors=256
 set background=dark
-
-highlight Normal guibg=None
-highlight cursorlinenr cterm=NONE
+colorscheme onedark
 
 
-set completeopt=menuone,noinsert,noselect
-" Avoid showing message extra message when using completion
-set shortmess+=c
 
-" let g:completion_enable_snippet = 'UltiSnips'
-"
 " LSP config (the mappings used in the default file don't quite work right)
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
@@ -431,12 +462,11 @@ nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
 " nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent> <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-" imap <silent> <c-p> <Plug>(completion_trigger)
-
+imap <silent> <c-p> <Plug>(completion_trigger)
 let g:completion_confirm_key = "\<C-y>"
 
 
-" Configuration: Telescope
+" Configurations: Telescope
 lua << EOF
 require('telescope').setup{
   defaults = {
@@ -497,18 +527,18 @@ require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('coc')
 EOF
 " nmap <C-p> :Telescope find_files<CR>
+nnoremap <silent> <leader>t :Telescope<CR>
+nmap <silent> <leader>fd :lua require('init').search_dotfiles()<CR>
+nmap <silent> <leader>fp :Telescope find_files cwd=/home/shahid/brainstorming/<CR>
 
-
-noremap <silent> <C-up> :resize +2<CR>
-noremap <silent> <C-down> :resize -2<CR>
-noremap <silent> <C-Left> :vertical resize +2<CR>
-noremap <silent> <C-Right> :vertical resize -2<CR>
 
 lua require('init')
 " in init.vim
 
 " command! Scratch lua require'tools'.makeScratch()
 
+
+" Configurations: nvim-ts-rainbow
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   rainbow = {
@@ -519,23 +549,13 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-" Toggle quickfix list
-function! QuickFix_toggle()
-    for i in range(1, winnr('$'))
-        let bnum = winbufnr(i)
-        if getbufvar(bnum, '&buftype') == 'quickfix'
-            cclose
-            return
-        endif
-    endfor
 
-    copen
-endfunction
-nnoremap <silent> <leader>c :call QuickFix_toggle()<cr>
-
-
+" Configuraions: vim-maximizer
 nmap <silent> <leader>z :MaximizerToggle<CR>
 " nmap <silent> <leader>z <Plug>(zoom-toggle)
+
+
+" Configuraions: nvim-compe
 lua << EOF
 require'compe'.setup {
   enabled = true;
@@ -564,3 +584,66 @@ require'compe'.setup {
   };
 }
 EOF
+
+" Configuraions: Uncategorized
+
+" HTML, XML, Jinja
+autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+
+autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
+autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
+autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
+autocmd FileType htmldjango setlocal commentstring={#\ %s\ #}
+
+" Markdown and Journal
+autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
+
+
+" Congigurations: numb.nvim
+lua require('numb').setup()
+
+
+" imap jk <ESC>
+" Configuraions: hop.nvim
+nmap <leader><leader>w :HopWord<CR>
+nmap <leader><leader>l :HopLine<CR>
+nmap <leader><leader>f :HopChar1<CR>
+nmap <leader><leader>s :HopChar2<CR>
+
+
+nnoremap Y y$
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ`z
+
+" Undo breakpoint
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap " " " "<c-g>u
+
+
+" greatest remap ever
+" vnoremap <leader>p "_dP
+
+" next greatest remap ever : asbjornHaland
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y gg"+yG
+
+" nnoremap <leader>d "_d
+" vnoremap <leader>d "_d
+
+
+" Jumplist mutation
+nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
+nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
+"Moving Text
+inoremap <C-j> <esc>:m .+1<CR>==
+inoremap <C-k> <esc>:m .-2<CR>==
+nnoremap <leader>j :m .+1<CR>==
+nnoremap <leader>k :m .-2<CR>==
