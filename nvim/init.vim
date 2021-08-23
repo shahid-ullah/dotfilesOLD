@@ -22,15 +22,16 @@ Plug 'raimon49/requirements.txt.vim'
 " colorscheme
 " Plug 'morhetz/gruvbox'
 " Plug 'joshdick/onedark.vim'
-
 Plug 'navarasu/onedark.nvim'
 " Plug 'savq/melange'
 Plug 'gruvbox-community/gruvbox'
 " Plug 'wojciechkepka/bogster'
-Plug 'arzg/vim-colors-xcode'
+" Plug 'arzg/vim-colors-xcode'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'arcticicestudio/nord-vim'
-Plug 'lifepillar/vim-solarized8'
+" Plug 'arcticicestudio/nord-vim'
+" Plug 'lifepillar/vim-solarized8'
+" Plug 'Rigellute/rigel'
+" Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 Plug 'ryanoasis/vim-devicons'
 
@@ -47,8 +48,8 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ThePrimeagen/harpoon'
+Plug 'airblade/vim-rooter'
 
-" Plug 'airblade/vim-rooter'
 " Plug 'nvim-lua/completion-nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
@@ -132,23 +133,31 @@ Plug 'tweekmonster/django-plus.vim'
 
 " Plug 'adelarsq/vim-devicons-emoji'
 Plug 'abecodes/tabout.nvim'
+" Plug 'liuchengxu/vim-which-key'
+Plug 'karb94/neoscroll.nvim'
+Plug 'mbbill/undotree'
+
+Plug 'Pocco81/TrueZen.nvim'
+Plug 'ibhagwan/fzf-lua'
+Plug 'vijaymarupudi/nvim-fzf'
+" Plug 'kyazdani42/nvim-web-devicons'
 
 call plug#end()
 
 
 " Configurations: General
 filetype plugin indent on    " required
-set number
-set relativenumber
+" set number
+" set relativenumber
 " set tm=500
 syntax enable
 syntax on
 set encoding=utf-8
-set ignorecase
-set incsearch
-set hlsearch
-set smartcase
-
+" set ignorecase
+" set incsearch
+" set hlsearch
+" set smartcase
+" set timeoutlen=500
 set path+=** "Find file in nested folder
 set wildmode=longest,list,full
 set wildmenu
@@ -197,9 +206,10 @@ let mapleader=" "
 nnoremap <silent> Q <nop>
 set scrolloff=6
 imap ii <ESC>
+imap jk <ESC>
 nnoremap <silent> <leader>hh :nohlsearch<CR>
-nnoremap <silent> <leader>w :w<CR>
-nnoremap <silent> <leader>q :q<CR>
+" nnoremap <silent> <leader>ww :w<CR>
+" nnoremap <silent> <leader>q :q<CR>
 
 set directory=$HOME/.vim/swp//
 set backupdir=~/.vim/.backup//
@@ -214,7 +224,7 @@ set undodir=~/.vim/undodir "Enable persistent undo so that undo history persists
 nnoremap <BS> gg
 
 " copy and pasting from system clipboard
-set clipboard=unnamed
+set clipboard+=unnamed
 inoremap <C-v> <ESC>"+p<ESC>
 vnoremap <C-c> "+y
 vnoremap <C-d> "+d
@@ -285,7 +295,7 @@ function! QuickFix_toggle()
     copen
 endfunction
 
-nnoremap <silent> <leader>c :call QuickFix_toggle()<cr>
+nnoremap <silent> <leader>cc :call QuickFix_toggle()<cr>
 
 
 augroup AutoSaveFolds
@@ -299,7 +309,7 @@ augroup end
 
 
 " Configurations: Plugin nerdtree
-map <silent> <leader>n :NERDTreeToggle<CR>
+map <silent> <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
@@ -364,9 +374,10 @@ let g:NERDTreeGitStatusShowIgnored= 1
 
 " Congigurations: vim-mundo
 "nnoremap <F5> :MundoToggle<CR>
+nnoremap <F5> :UndotreeToggle<CR>
 
 
-" Configurations: Plugin ale
+"Configurations: Plugin ale
 " install all required packages to global python version that vim was compiled with
 " check compiled python version
 " :py3 import sys; print(sys.version)
@@ -399,7 +410,7 @@ let g:ack_use_cword_for_empty_search = 1
 cnoreabbrev Ack Ack!
 
 " Maps <leader>a so we're ready to type the search keyword
-nnoremap <silent> <leader>a :Ack!<Space>
+nnoremap <leader>a :Ack!<Space>
 
 
 " Configuration: UltiSnippets
@@ -427,11 +438,6 @@ autocmd BufWritePre *.py execute ':Isort'
 
 " Configuration: colorschemes
 " general
-set termguicolors
-highlight cursorlinenr cterm=NONE
-highlight Normal guibg=NONE ctermbg=NONE
-highlight LineNr guibg=NONE ctermbg=NONE
-highlight VertSplit gui=NONE guibg=NONE guifg=#444444 cterm=NONE ctermbg=NONE ctermfg=gray
 
 " gruvbox specific
 if exists('+termguicolors')
@@ -439,6 +445,7 @@ if exists('+termguicolors')
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
+set termguicolors
 let g:gruvbox_invert_selection='0'
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_italic=1
@@ -451,17 +458,12 @@ let g:onedark_termcolors=256
 set background=dark
 colorscheme onedark
 
+highlight cursorlinenr cterm=NONE
+highlight Normal guibg=NONE ctermbg=NONE
+highlight LineNr guibg=NONE ctermbg=NONE
+highlight VertSplit gui=NONE guibg=NONE guifg=#444444 cterm=NONE ctermbg=NONE ctermfg=gray
 
-
-" LSP config (the mappings used in the default file don't quite work right)
-nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
-" nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent> <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+"  Lsp Configuration
 imap <silent> <c-p> <Plug>(completion_trigger)
 let g:completion_confirm_key = "\<C-y>"
 
@@ -526,8 +528,8 @@ require('telescope').setup{
 require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('coc')
 EOF
-" nmap <C-p> :Telescope find_files<CR>
-nnoremap <silent> <leader>t :Telescope<CR>
+" nnoremap <C-f> :Telescope find_files<CR>
+nnoremap <silent> <leader><leader>t :Telescope<CR>
 nmap <silent> <leader>fd :lua require('init').search_dotfiles()<CR>
 nmap <silent> <leader>fp :Telescope find_files cwd=/home/shahid/brainstorming/<CR>
 
@@ -551,7 +553,9 @@ EOF
 
 
 " Configuraions: vim-maximizer
-nmap <silent> <leader>z :MaximizerToggle<CR>
+" nmap <silent> <leader>m :MaximizerToggle<CR>
+nmap <silent> <leader>m :TZMinimalist<CR>
+nmap <silent> <leader>z :TZFocus<CR>
 " nmap <silent> <leader>z <Plug>(zoom-toggle)
 
 
@@ -588,11 +592,11 @@ EOF
 " Configuraions: Uncategorized
 
 " HTML, XML, Jinja
-autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType html set shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType css set shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType xml set shiftwidth=2 tabstop=2 softtabstop=2
 
-autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType htmldjango set shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
 autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
 autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
@@ -611,8 +615,8 @@ lua require('numb').setup()
 " Configuraions: hop.nvim
 nmap <leader><leader>w :HopWord<CR>
 nmap <leader><leader>l :HopLine<CR>
-nmap <leader><leader>f :HopChar1<CR>
-nmap <leader><leader>s :HopChar2<CR>
+nmap <leader>1 :HopChar1<CR>
+nmap <leader>2 :HopChar2<CR>
 
 
 nnoremap Y y$
@@ -628,15 +632,15 @@ inoremap " " " "<c-g>u
 
 
 " greatest remap ever
-" vnoremap <leader>p "_dP
+vnoremap <leader>p "_dP
 
 " next greatest remap ever : asbjornHaland
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 nnoremap <leader>Y gg"+yG
 
-" nnoremap <leader>d "_d
-" vnoremap <leader>d "_d
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
 
 
 " Jumplist mutation
@@ -647,3 +651,139 @@ inoremap <C-j> <esc>:m .+1<CR>==
 inoremap <C-k> <esc>:m .-2<CR>==
 nnoremap <leader>j :m .+1<CR>==
 nnoremap <leader>k :m .-2<CR>==
+
+
+" configurations: lspsaga
+"
+nnoremap <silent><leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
+vnoremap <silent><leader>ca :<C-U>lua require('lspsaga.codeaction').range_code_action()<CR
+" nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
+" nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
+nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
+nnoremap <silent> gs <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
+nnoremap <silent>gr <cmd>lua require('lspsaga.rename').rename()<CR>
+nnoremap <silent> <leader>pd <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
+nnoremap <silent> <A-d> <cmd>lua require('lspsaga.floaterm').open_float_terminal()<CR>
+tnoremap <silent> <A-d> <C-\><C-n>:lua require('lspsaga.floaterm').close_float_terminal()<CR>
+
+
+" Map leader to which_key
+
+
+
+" Configuraions: neoscroll
+
+lua require('neoscroll').setup()
+
+augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 60})
+augroup END
+
+
+function! RefreshBackground()
+    set termguicolors
+    highlight cursorlinenr cterm=NONE
+    highlight Normal guibg=NONE ctermbg=NONE
+    highlight LineNr guibg=NONE ctermbg=NONE
+    highlight VertSplit gui=NONE guibg=NONE guifg=#444444 cterm=NONE ctermbg=NONE ctermfg=gray
+endfunction
+
+command! -nargs=0 RefreshBackground call RefreshBackground()
+
+fun! EmptyRegisters()
+    let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
+    for r in regs
+        " call setreg(r, [])
+        call setreg(r, @_)
+    endfor
+endfun
+
+command! -nargs=0 EmptyRegisters call EmptyRegisters()
+
+
+autocmd InsertLeave,WinEnter * set cursorline
+autocmd InsertEnter,WinLeave * set nocursorline
+
+autocmd ColorScheme * highlight StatusLine ctermbg=darkgray cterm=NONE guibg=darkgray gui=NONE
+
+augroup every
+  autocmd!
+  au InsertEnter * set norelativenumber
+  au InsertLeave * set relativenumber
+augroup END
+
+com! W w
+
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+
+" Customize fzf colors to match your color scheme.
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-b': 'split',
+  \ 'ctrl-v': 'vsplit',
+  \ 'ctrl-y': {lines -> setreg('*', join(lines, "\n"))}}
+
+" Only show the cursor line in the active buffer.
+augroup CursorLine
+    au!
+    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+augroup END
+
+" Update a buffer's contents on focus if it changed outside of Vim.
+au FocusGained,BufEnter * :checktime
+
+" Unset paste on InsertLeave.
+autocmd InsertLeave * silent! set nopaste
+
+" Prevent x from overriding what's in the clipboard.
+" noremap x "_x
+" noremap X "_x
+
+" Prevent selecting and pasting from overwriting what you originally copied.
+" xnoremap p pgvy
+
+" Keep cursor at the bottom of the visual selection after you yank it.
+vmap y ygv<Esc>
+
+" Insert mode navigate up and down
+inoremap <Down> <C-o>gj
+inoremap <Up> <C-o>gk
+
+nnoremap <c-P> <cmd>lua require('fzf-lua').files()<CR>
+
+
+" Better color support
+if (has("nvim"))
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+nnoremap <silent> <esc> :noh<return><esc>
+
+" Search and Replace
+nnoremap <Leader>S :%s/\<<C-r><C-w>\>/
+
+nnoremap ; :
+nnoremap \ ;
+
+command! -nargs=0 Ctags silent! !eval 'universal-ctags -R --exclude=.venv --exclude="*.html"-o newtags; mv newtags tags' &
+nnoremap <silent> <leader>tu :Ctags<CR>
+nnoremap <leader>F gg=G
