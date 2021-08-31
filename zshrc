@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/shahid/.oh-my-zsh"
@@ -105,13 +105,13 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export CDPATH=.:~:~/Desktop/Tappware:~/Desktop/Desktop
+export CDPATH=.:~:~/Desktop/Tappware/projects:~/Desktop/Desktop:~/BlogContent
 export FZF_DEFAULT_COMMAND='rg --files'
 alias ctags="universal-ctags -R --exclude=.venv --exclude='*.js' --exclude='*.html' --exclude='*.css' --exclude='*.svg' --exclude='*.xml'"
 alias ct="universal-ctags -R --exclude=.venv --exclude='*.js' --exclude='*.html' --exclude='*.css' --exclude='*.svg' --exclude='*.xml'"
 alias lh='ls -ld .?*'
+alias python='python3.8'
 # alias ctags='universal-ctags'
-alias redis-server='redis-server --daemonize yes'
 bindkey -v
 
 fpath=($fpath "/home/shahid/.zfunctions")
@@ -126,26 +126,14 @@ SPACESHIP_PROMPT_ADD_NEWLINE=false
 SPACESHIP_VI_MODE_SHOW=false
 SPACESHIP_USER_SHOW=always
 
-export DJANGO_DB_NAME='bokshi-chat'
-export DJANGO_DB_USER='shahid'
-export DJANGO_DB_PASSWORD='password'
-export DJANGO_DB_HOST='127.0.0.1'
-export DJAGNO_DB_PORT='3306'
+# alias nv="nvim"
+alias tmux='tmux -2'
 
-export DJANGO_DB_NAME_DEV='bokshi_chat_dev'
-export DJANGO_DB_USER_DEV='shahid'
-export DJANGO_DB_PASSWORD_DEV='password'
-export DJANGO_DB_HOST_DEV='127.0.0.1'
-export DJAGNO_DB_PORT_DEV='3306'
-
-alias runserver="python manage.py runserver"
-alias makemigrations="python manage.py makemigrations"
-alias createsuperuser="python manage.py createsuperuser"
-alias migrate="python manage.py migrate"
-alias shell="python manage.py shell"
-alias shellplus="python manage.py shell_plus"
-alias activate='source .venv/bin/activate'
-alias nv="nvim"
+alias cd1="cd .."
+alias cd2="cd ../.."
+alias cd3="cd ../../.."
+alias cd4="cd ../../../.."
+alias cd5="cd ../../../../.."
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -163,3 +151,16 @@ source ~/.fzf/shell/key-bindings.zsh
 source ~/.fzf/shell/completion.zsh
 
 export PATH=$HOME/local/nvim/bin:$PATH
+export PATH=$HOME/potion/bin:$PATH
+export PATH=$HOME/.emacs.d/bin:$PATH
+export EDITOR=vim
+export KEYCLOAK_SETTINGS='abc'
+
+bindkey -s '^o' 'nvim $(fzf)^M'
+# you may also use the following one
+# bindkey -s '^o' 'nvim $(fzf)\n'
+
+export FZF_ALT_C_COMMAND="fd -t d . $HOME/projects"
+
+export DENO_INSTALL="/home/shahid/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
