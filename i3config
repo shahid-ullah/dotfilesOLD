@@ -74,6 +74,8 @@ bindsym $mod+Ctrl+v split h
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
+# global fullscreen: across all monitors
+bindsym $mod+shift+f        fullscreen toggle global
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -87,6 +89,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
+#
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
@@ -206,3 +209,4 @@ bar
 
 # Take a screenshot upon pressing $mod+x (select an area)
 bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screenshot.png
+for_window [class="Firefox" instance="Places"] floating enable
