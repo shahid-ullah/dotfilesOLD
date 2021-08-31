@@ -27,6 +27,8 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 
 
+export PATH=~/.npm-global/bin:$PATH
+source "$HOME/.cargo/env"
 
 # make short-pressed Ctrl behave like Escape:
 xcape -e 'Control_L=Escape'
