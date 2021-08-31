@@ -5,7 +5,6 @@
     "timeline.excludeSources": [
         "git-history"
     ],
-    "workbench.colorTheme": "Gruvbox Dark Hard",
     "vim.easymotion": true,
     "vim.leader": "<space>",
     "vim.handleKeys": {
@@ -28,9 +27,7 @@
         },
         {
             "before": [
-                "<leader>",
-                "h",
-                "h"
+                "<Esc>",
             ],
             "commands": [
                 ":nohl",
@@ -74,14 +71,15 @@
         "statusBar.background": "#B48EAD",
         "statusBar.noFolderBackground": "#B48EAD",
         "statusBar.debuggingBackground": "#B48EAD",
-        "statusBar.foreground": "#434C5E"
+        "statusBar.foreground": "#434C5E",
+        "statusBar.debuggingForeground": "#434C5E"
     },
     "files.autoSave": "afterDelay",
     "workbench.startupEditor": "none",
     "vim.insertModeKeyBindings": [
         {
             "before": [
-                "j",
+                "k",
                 "k"
             ],
             "after": [
@@ -90,4 +88,12 @@
         }
     ],
     "search.useGlobalIgnoreFiles": true,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "workbench.iconTheme": "vscode-icons",
+    "editor.wordWrap": "on",
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+
 }
