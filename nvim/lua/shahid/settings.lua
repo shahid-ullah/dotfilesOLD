@@ -25,8 +25,8 @@ vim.api.nvim_command('syntax on')
 
 -- Configurations General
 -- map the leader key
-vim.api.nvim_set_keymap('n', '<Space>', '', {})
-vim.g.mapleader = " "             -- change leader to a comma
+-- vim.api.nvim_set_keymap('n', '<Space>', '', {})
+-- vim.g.mapleader = " "
 
 vim.opt.mouse = 'a'
 
@@ -35,7 +35,7 @@ vim.o.relativenumber = true
 
 vim.o.encoding = 'utf-8'
 
--- vim.o.ignorecase = true
+vim.o.ignorecase = true
 vim.o.incsearch = true
 vim.o.hlsearch = true
 vim.o.smartcase = true
@@ -43,6 +43,12 @@ vim.o.smartcase = true
 
 vim.opt.wildmenu = true
 vim.opt.wildmode = {'longest', 'list', 'full'}  -- Command-line completion mode
+
+vim.opt.wildignore = {'*/cache/*', '*/tmp/*', '*.pyc', '*_build/*', '**/coverage/*', '**/node_modules/*', '**/android/*', '**/ios/*', '**/.git/*'}
+
+vim.opt.shortmess = vim.opt.shortmess + 'c'
+vim.opt.scrolloff = 6
+
 
 vim.o.laststatus = 2
 vim.o.title = true
@@ -80,7 +86,11 @@ vim.opt.splitbelow = true
 
 opt.completeopt = {'menuone', 'noinsert', 'noselect'}  -- Completion options (for deoplete)
 
+vim.api.nvim_set_keymap('n', '<Space>', '', {})
 
+
+
+-- Configurations: Plugin indent-blankline.nvim
 vim.opt.termguicolors = true
 vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 blend=nocombine]]
 vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B blend=nocombine]]
@@ -107,23 +117,4 @@ require("indent_blankline").setup {
         "IndentBlanklineIndent6",
     },
 }
-
--- cmd 'colorscheme catppuccino'            -- Put your favorite colorscheme here
--- opt.expandtab = true                -- Use spaces instead of tabs
--- opt.hidden = true                   -- Enable background buffers
--- opt.ignorecase = true               -- Ignore case
--- opt.joinspaces = false              -- No double spaces with join
--- opt.list = true                     -- Show some invisible characters
--- opt.number = true                   -- Show line numbers
--- opt.relativenumber = true           -- Relative line numbers
--- opt.scrolloff = 4                   -- Lines of context
--- opt.shiftround = true               -- Round indent
--- opt.shiftwidth = 2                  -- Size of an indent
--- opt.sidescrolloff = 8               -- Columns of context
--- opt.smartcase = true                -- Do not ignore case with capitals
--- opt.smartindent = true              -- Insert indents automatically
--- opt.splitbelow = true               -- Put new windows below current
--- opt.splitright = true               -- Put new windows right of current
--- opt.tabstop = 2                     -- Number of spaces tabs count for
--- opt.termguicolors = true            -- True color support
--- opt.wrap = false                    -- Disable line wrap
+-- end Configurations

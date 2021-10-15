@@ -1,16 +1,49 @@
 require('plugins')
 -- require('neoscroll').setup()
 require('shahid.settings')
+-- require('shahid.nvim-tree')
+require('shahid.maps')
+require('shahid.cmp_nvim')
 require('shahid.lir')
+require('shahid.telescope_lua')
 require('shahid.custom_functions')
 require('shahid.fzf-lua')
-require('shahid.maps')
+require('shahid.lspkind')
+require('numb').setup()
+require('github-theme').setup()
+-- require'nvim-treesitter.configs'.setup {
+--   autotag = {
+--     enable = true,
+--   }
+-- }
+
+-- require('specs').setup{
+--     show_jumps  = true,
+--     min_jump = 30,
+--     popup = {
+--         delay_ms = 0, -- delay before popup displays
+--         inc_ms = 10, -- time increments used for fade/resize effects
+--         blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
+--         width = 10,
+--         winhl = "PMenu",
+--         fader = require('specs').linear_fader,
+--         resizer = require('specs').shrink_resizer
+--     },
+--     ignore_filetypes = {},
+--     ignore_buftypes = {
+--         nofile = true,
+--     },
+-- }
+-- require("nvim-tree.events").on_nvim_tree_ready(function()
+--   vim.cmd("NvimTreeRefresh")
+-- end)
 
 
 local actions = require('telescope.actions')
 
 -- Start: lsp-config
 local nvim_lsp = require('lspconfig')
+-- local coq = require "coq" -- add this
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -54,9 +87,20 @@ for _, lsp in ipairs(servers) do
         on_attach = on_attach,
         flags = {
             debounce_text_changes = 150,
-        }
+        },
+        capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
     }
 end
+
+
+-- require('lspconfig')[%YOUR_LSP_SERVER%].setup {
+--     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- }
+-- for _, lsp in ipairs(servers) do
+--     nvim_lsp[lsp].setup {
+--         coq.lsp_ensure_capabilities()
+--     }
+-- end
 
 -- End: lsp-config
 
