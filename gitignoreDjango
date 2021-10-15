@@ -1,8 +1,9 @@
 # for Myself only
 note
 .vim
-Session.vim
+session.vim
 worktree/
+dumb.rdb
 
 # Django #
 *.log
