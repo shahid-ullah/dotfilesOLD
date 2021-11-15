@@ -24,5 +24,8 @@
 	ui = true
 [init]
 	defaultBranch = main
+	templatedir = ~/.git_template
 [pull]
 	rebase = false
+[merge]
+	conflictstyle = diff3
