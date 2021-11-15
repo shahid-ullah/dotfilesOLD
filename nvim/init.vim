@@ -1,10 +1,28 @@
-
 set termguicolors " this variable must be enabled for colors to be applied properly
 let g:python3_host_prog='/usr/bin/python3.8'
 " general configurations
 
 lua require('init')
 let g:vimsyn_embed = 'l'
+
+
+" configuration: neosolarized
+
+let g:neosolarized_contrast = "normal"
+let g:neosolarized_visibility = "normal"
+let g:neosolarized_vertSplitBgTrans = 1
+
+let g:neosolarized_bold = 1
+let g:neosolarized_underline = 1
+let g:neosolarized_italic = 0
+let g:neosolarized_termBoldAsBright = 1
+
+" End configuration
+
+
+let g:alduin_Shout_Become_Ethereal = 1
+let g:alduin_Shout_Dragon_Aspect = 1
+let g:alduin_Shout_Fire_Breath = 1
 
 set fillchars+=vert:\|
 " Configurations: General\
@@ -15,8 +33,8 @@ nnoremap <silent> Q <nop>
 set directory=$HOME/.vim/swp//
 set backupdir=~/.vim/.backup//
 
-nnoremap <silent> <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <silent><leader><leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader><leader>sv :source $MYVIMRC<cr>
 
 set undodir=~/.vim/undodir
 " Enable persistent undo so that undo history persists across vim sessions
@@ -141,22 +159,22 @@ let g:fzf_colors =
 " nmap <silent> <Leader>ll :Lines<CR>
 
 " fzf File Finder
-nmap <silent> <Leader>fg :GFiles<CR>
+" nmap <silent> <Leader>fg :GFiles<CR>
 " nmap <silent> <Leader>ff :Files<CR>
 
 " fzf Buffer Finder
 " nmap <silent> <Leader>fb :Buffers<CR>
-nmap <silent> <Leader>fh :History<CR>
+" nmap <silent> <Leader>fh :History<CR>
 
-nmap <silent> <Leader>ft :BTags<CR>
-nmap <silent> <leader>tt :Tags<CR>
+nmap <silent> <Leader>t :BTags<CR>
+nmap <silent> <leader>T :Tags<CR>
 
-if executable('ag')
-  " Use ag over grep "
-  set grepprg=ag\ -w\ --nogroup\ --nocolor\ --column
-  command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-  nnoremap <leader>g :Ag<SPACE>
-endif
+" if executable('ag')
+"   " Use ag over grep "
+"   set grepprg=ag\ -w\ --nogroup\ --nocolor\ --column
+"   command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+"   nnoremap <leader>g :Ag<SPACE>
+" endif
 
 "Get Files
 command! -bang -nargs=? -complete=dir Files
@@ -291,20 +309,14 @@ let g:gruvbox_invert_selection='0'
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_italic=1
 
+let g:material_style='deep'
 
 " onedark specific
 let g:onedark_style = 'darker'
 let g:onedark_transparent_background = 1
 let g:onedark_termcolors=256
 set background=dark
-" colorscheme dark_catppuccino
-colorscheme monokai_pro
-colorscheme srcery
-
-" highlight cursorlinenr cterm=NONE
-" highlight Normal guibg=NONE ctermbg=NONE
-" highlight LineNr guibg=NONE ctermbg=NONE
-" highlight VertSplit gui=NONE guibg=NONE guifg=#444444 cterm=NONE ctermbg=NONE ctermfg=gray
+colorscheme onedark
 
 "  Lsp Configuration
 imap <silent> <c-p> <Plug>(completion_trigger)
@@ -312,11 +324,8 @@ let g:completion_confirm_key = "\<C-y>"
 
 
 " Configurations: Telescope
-" nnoremap <C-f> :Telescope find_files<CR>
-nnoremap <silent> <leader><leader>t :Telescope<CR>
-nmap <silent> <leader>fd :lua require('init').search_dotfiles()<CR>
-nmap <silent> <leader>ls :Telescope lsp_document_symbols<CR>
-nmap <silent> <leader>lr :Telescope lsp_references<CR>
+nmap <silent> <leader>vs :Telescope lsp_document_symbols<CR>
+nmap <silent> <leader>vr :Telescope lsp_references<CR>
 " nmap <silent> <leader>fp :Telescope find_files cwd=/home/shahid/brainstorming/<CR>
 
 
@@ -329,37 +338,6 @@ nmap <silent> <leader>z :MaximizerToggle<CR>
 " nmap <silent> <leader>m :TZMinimalist<CR>
 " nmap <silent> <leader>z :TZFocus<CR>
 " nmap <silent> <leader>z <Plug>(zoom-toggle)
-
-
-" Configuraions: nvim-compe
-lua << EOF
---require'compe'.setup {
---enabled = true;
---autocomplete = true;
---debug = false;
---min_length = 1;
---preselect = 'enable';
---throttle_time = 80;
---source_timeout = 200;
---resolve_timeout = 800;
---incomplete_delay = 400;
---max_abbr_width = 100;
---max_kind_width = 100;
---max_menu_width = 100;
---documentation = true;
---
---source = {
---  path = true;
---  buffer = true;
---  calc = true;
---  nvim_lsp = true;
---  nvim_lua = true;
---  vsnip = true;
---  ultisnips = true;
---  luasnip = true;
---  };
---}
-EOF
 
 " Configuraions: Uncategorized
 
@@ -376,18 +354,9 @@ autocmd FileType markdown setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=
 autocmd FileType journal setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
 
-" Congigurations: numb.nvim
-" lua require('numb').setup()
-
-
-imap jk <ESC>
 " Configuraions: hop.nvim
-nmap <leader><leader>w :HopWord<CR>
-nmap <leader><leader>l :HopLine<CR>
-nmap <leader>1 :HopChar1<CR>
-nmap <leader>[ :HopChar1<CR>
-nmap <leader>2 :HopChar2<CR>
-nmap <leader>] :HopChar2<CR>
+nmap <silent> <leader>w :HopWord<CR>
+nmap <silent> <leader>s :HopChar2<CR>
 
 
 nnoremap Y y$
@@ -395,6 +364,14 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap J mzJ`z
 
+inoremap <C-v> <ESC>"+p<ESC>
+
+" Change text without putting it into the vim register,
+" see https://stackoverflow.com/q/54255/6064933
+nnoremap c "_c
+nnoremap C "_C
+nnoremap cc "_cc
+xnoremap c "_c
 
 " greatest remap ever
 vnoremap <leader>p "_dP
@@ -516,11 +493,11 @@ endif
 nnoremap <silent> <esc> :noh<return><esc>
 
 " Search and Replace
-nnoremap <Leader>S :%s/\<<C-r><C-w>\>/
+nnoremap <Leader><leader>ss :%s/\<<C-r><C-w>\>/
 " nnoremap <c-s> :%s/\<<C-r><C-w>\>/
 
-command! -nargs=0 Ctags silent! !eval 'universal-ctags -R --exclude=.venv --exclude="*.html" --exclude="*.css" --exclude="*.svg" --exclude="*.xml" -o newtags; mv newtags tags' &
-nnoremap <silent> <leader>tu :Ctags<CR>
+" command! -nargs=0 Ctags silent! !eval 'universal-ctags -R --exclude=.venv --exclude="*.html" --exclude="*.css" --exclude="*.svg" --exclude="*.xml" -o newtags; mv newtags tags' &
+" nnoremap <silent> <leader>tu :Ctags<CR>
 
 nnoremap <leader>F mzgg=G`z
 nnoremap J mzJ`z
@@ -531,8 +508,8 @@ augroup general_config
   autocmd!
 
   " Speed up viewport scrolling {{{
-  nnoremap <C-e> 3<C-e>
-  nnoremap <C-y> 3<C-y>
+  " nnoremap <C-e> 3<C-e>
+  " nnoremap <C-y> 3<C-y>
   " }}}
   " Fix page up and down {{{
   map <PageUp> <C-U>
@@ -592,12 +569,6 @@ xnoremap L g_
 nnoremap <C-s> :%s/\<\>//g
 xnoremap <C-s> :s/
 
-" Change text without putting it into the vim register,
-" see https://stackoverflow.com/q/54255/6064933
-nnoremap c "_c
-nnoremap C "_C
-nnoremap cc "_cc
-xnoremap c "_c
 
 " Break inserted text into smaller undo units.
 for ch in [',', '.', '!', '?', ';', ':']
@@ -664,17 +635,10 @@ set ignorecase
 
 " fzf lua configurations
 
-nnoremap <c-P> <cmd>lua require('fzf-lua').files()<CR>
-" nnoremap <leader>ff <cmd>lua require('fzf-lua').files()<CR>
-nnoremap <leader>ff :Telescope find_files<CR>
-" nnoremap <leader>fb <cmd>lua require('fzf-lua').buffers()<CR>
-nnoremap <leader>fb :Telescope buffers<CR>
-" nnoremap <leader>fl <cmd>lua require('fzf-lua').blines()<CR>
-nnoremap <leader>fl :Telescope current_buffer_fuzzy_find<CR>
-" nnoremap <leader>fl <cmd>lua require('fzf-lua').grep_curbuf({fzf_layout='default'})<CR>
-nnoremap <leader>ll <cmd>lua require('fzf-lua').lines()<CR>
-nnoremap <leader>fm <cmd>lua require('fzf-lua').marks()<CR>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <silent> <c-P> <cmd>lua require('fzf-lua').files()<CR>
+nnoremap <silent> <leader>f :Telescope find_files<CR>
+nnoremap <silent> <leader>b :Telescope buffers<CR>
+nnoremap <silent> <leader>l :Telescope current_buffer_fuzzy_find<CR>
 
 
 nnoremap j gj
@@ -687,50 +651,9 @@ nnoremap k gk
 " nnoremap <M-L> >>
 "
 
-" Configuraions: Plugin gesture
-set mouse=a
-
-" nnoremap <silent> <LeftDrag> <Cmd>lua require("gesture").draw()<CR>
-" nnoremap <silent> <LeftRelease> <Cmd>lua require("gesture").finish()<CR>
-
-" or if you would like to use right click
-" nnoremap <RightMouse> <Nop>
-" nnoremap <silent> <RightDrag> <Cmd>lua require("gesture").draw()<CR>
-" nnoremap <silent> <RightRelease> <Cmd>lua require("gesture").finish()<CR>
-
-lua << EOF
---local gesture = require('gesture')
---gesture.register({
---name = "scroll to bottom",
---inputs = { gesture.up(), gesture.down() },
---action = "normal! G"
---})
---gesture.register({
---name = "next tab",
---inputs = { gesture.right() },
---action = "tabnext"
---})
---gesture.register({
---name = "previous tab",
---inputs = { gesture.left() },
---action = function(ctx) -- also can use callable
---vim.cmd("tabprevious")
---  end,
---  })
---gesture.register({
---name = "go back",
---inputs = { gesture.right(), gesture.left() },
----- map to `<C-o>` keycode
---action = [[lua vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-o>", true, false, true), "n", true)]]
---})
-EOF
-" Configurations End: Plugin gesture
-"
-"
-"
 " configurations: Plugin lir.nvim
 nnoremap <silent> <leader>n :lua require('lir.float').toggle()<CR>
-nnoremap <silent> <C-n> :lua require('lir.float').toggle()<CR>
+" nnoremap <silent> <C-n> :lua require('lir.float').toggle()<CR>
 
 
 " testing purpose
@@ -758,20 +681,50 @@ command GREP :execute 'vimgrep '.expand('<cword>').' '.expand('%') | :copen | :c
 
 set termguicolors " this variable must be enabled for colors to be applied properly
 
-" a list of groups can be found at `:help nvim_tree_highlight`
-" highlight NvimTreeFolderIcon guibg=blue
-
 
 
 hi! link QuickFixLine Search
 
-
-" Bold stuff
-let g:aqua_bold = 1
-
-" To enable Lightmode change the style variable:
-" options: "light", "dark"
-let g:aquarium_style="dark"
-
-
 map ' `
+
+nnoremap <leader>vpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
+nnoremap <leader>vpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
+nnoremap <leader>vpc <cmd>lua require('goto-preview').close_all_win()<CR>
+" Only set if you have telescope installed
+nnoremap <leader>vpr <cmd>lua require('goto-preview').goto_preview_references()<CR>
+
+" nnoremap <leader>vd :lua vim.lsp.buf.definition()<CR>
+" nnoremap <leader>vi :lua vim.lsp.buf.implementation()<CR>
+" nnoremap <leader>vsh :lua vim.lsp.buf.signature_help()<CR>
+" nnoremap <leader>vrr :lua vim.lsp.buf.references()<CR>
+" nnoremap <leader>vrn :lua vim.lsp.buf.rename()<CR>
+" nnoremap <leader>vh :lua vim.lsp.buf.hover()<CR>
+" nnoremap <leader>vca :lua vim.lsp.buf.code_action()<CR>
+" nnoremap <leader>vsd :lua vim.lsp.diagnostic.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
+" nnoremap <leader>vn :lua vim.lsp.diagnostic.goto_next()<CR>
+" nnoremap <leader>vll :call LspLocationList()<CR>
+
+" configuration: harpoon
+
+nnoremap <C-e> :lua require("harpoon.ui").toggle_quick_menu()<CR>
+nnoremap <leader>m :lua require("harpoon.mark").add_file()<CR>
+" nnoremap <C-y> :lua require("harpoon.cmd-ui").toggle_quick_menu()<CR>
+
+nnoremap <leader>hh :lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <leader>hj :lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <leader>hk :lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <leader>hl :lua require("harpoon.ui").nav_file(4)<CR>
+
+
+" lua require('colorbuddy').colorscheme('nvim-rdark')
+"
+" configuration: plugin -> 'kevinhwang91/nvim-hlslens'
+
+noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR>
+            \<Cmd>lua require('hlslens').start()<CR>
+noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR>
+            \<Cmd>lua require('hlslens').start()<CR>
+noremap * *<Cmd>lua require('hlslens').start()<CR>
+noremap # #<Cmd>lua require('hlslens').start()<CR>
+noremap g* g*<Cmd>lua require('hlslens').start()<CR>
+noremap g# g#<Cmd>lua require('hlslens').start()<CR>

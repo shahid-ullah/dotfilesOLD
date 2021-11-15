@@ -12,7 +12,7 @@ require('telescope').setup {
 
         mappings = {
             i = {
-                ["<C-x>"] = false,
+                -- ["<C-x>"] = false,
                 ["<C-q>"] = actions.send_to_qflist,
             },
         }
@@ -36,4 +36,5 @@ require('telescope').setup {
 
 -- require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('fzf')
+-- require('telescope').load_extension('coc')
 -- require('telescope').load_extension('lsp_handlers')

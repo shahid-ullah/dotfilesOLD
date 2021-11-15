@@ -106,7 +106,7 @@ require'fzf-lua'.setup {
     actions = {
       -- set bind to 'false' to disable
       ["default"]     = actions.file_edit,
-      ["ctrl-b"]      = actions.file_split,
+      ["ctrl-x"]      = actions.file_split,
       ["ctrl-v"]      = actions.file_vsplit,
       ["ctrl-t"]      = actions.file_tabedit,
       ["alt-q"]       = actions.file_sel_to_qf,
@@ -144,7 +144,7 @@ require'fzf-lua'.setup {
       preview         = "git show --pretty='%Cred%H%n%Cblue%an%n%Cgreen%s' --color {1}",
       actions = {
         ["default"] = actions.git_buf_edit,
-        ["ctrl-b"]  = actions.git_buf_split,
+        ["ctrl-x"]  = actions.git_buf_split,
         ["ctrl-v"]  = actions.git_buf_vsplit,
         ["ctrl-t"]  = actions.git_buf_tabedit,
       },
@@ -189,7 +189,7 @@ require'fzf-lua'.setup {
     sort_lastused     = true,         -- sort buffers() by last used
     actions = {
       ["default"]     = actions.buf_edit,
-      ["ctrl-b"]      = actions.buf_split,
+      ["ctrl-x"]      = actions.buf_split,
       ["ctrl-v"]      = actions.buf_vsplit,
       ["ctrl-t"]      = actions.buf_tabedit,
       ["ctrl-x"]      = actions.buf_del,
@@ -200,7 +200,7 @@ require'fzf-lua'.setup {
     prompt            = 'BLines❯ ',
     actions = {
       ["default"]     = actions.buf_edit,
-      ["ctrl-b"]      = actions.buf_split,
+      ["ctrl-x"]      = actions.buf_split,
       ["ctrl-v"]      = actions.buf_vsplit,
       ["ctrl-t"]      = actions.buf_tabedit,
     }

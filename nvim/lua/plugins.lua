@@ -18,7 +18,52 @@ return require('packer').startup({function()
 
     -- colorschemes
 
+    use 'tjdevries/colorbuddy.vim'
+
+    use "catppuccin/nvim"
+    use 'jnurmine/Zenburn'
+
+    use 'RishabhRD/nvim-rdark'
+
+    -- use {
+    --     'https://git.sr.ht/~novakane/kosmikoa.nvim',
+    --     -- you can require it directly here
+    --     config = function()
+    --         require'kosmikoa'
+    --     end,
+    -- }
+
+    use {"rktjmp/lush.nvim"}
+    use {"adisen99/codeschool.nvim"}
+
+    use 'bkegley/gloombuddy'
+
+    use 'fenetikm/falcon'
+
+    use 'Iron-E/nvim-highlite'
+    use 'EdenEast/nightfox.nvim'
+    use({
+            'rose-pine/neovim',
+            as = 'rose-pine',
+            config = function()
+                -- Options (see available options below)
+                vim.g.rose_pine_variant = 'base'
+
+                -- Load colorscheme after options
+            end
+        })
+    -- use 'embark-theme/vim'
+
+    use 'kyazdani42/blue-moon'
+    use 'tjdevries/gruvbuddy.nvim'
     use 'frenzyexists/aquarium-vim'
+    use 'glepnir/zephyr-nvim'
+
+    use 'Th3Whit3Wolf/space-nvim'
+    use 'olimorris/onedarkpro.nvim'
+    use 'marko-cerovac/material.nvim'
+
+    use 'AlessandroYorba/Alduin'
     use 'tomasiser/vim-code-dark'
     use 'sainnhe/gruvbox-material'
     use 'jacoborus/tender.vim'
@@ -44,10 +89,14 @@ return require('packer').startup({function()
     -- use 'joshdick/onedark.vim'
     -- use 'navarasu/onedark.nvim'
     -- use 'savq/melange'
-    use 'gruvbox-community/gruvbox'
+    -- use 'gruvbox-community/gruvbox'
+
+    use {"ellisonleao/gruvbox.nvim"}
     -- use 'wojciechkepka/bogster'
     --    use 'arzg/vim-colors-xcode'
     use 'NLKNguyen/papercolor-theme'
+
+    use 'shaunsingh/nord.nvim'
     -- use 'arcticicestudio/nord-vim'
     -- use 'lifepillar/vim-solarized8'
     -- use 'Rigellute/rigel'
@@ -61,7 +110,7 @@ return require('packer').startup({function()
     -- use 'mihaifm/4colors'
     use 'phanviet/vim-monokai-pro'
     use 'bluz71/vim-moonfly-colors'
-    -- use 'overcache/NeoSolarized'
+    use 'overcache/NeoSolarized'
     -- use 'folke/tokyonight.nvim', { 'branch': 'main' }
 
     -- Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP, unite, Denite, lightline, vim-startify and many more
@@ -75,7 +124,7 @@ return require('packer').startup({function()
     use 'mileszs/ack.vim'
 
     -- A text searching plugin mimics Ctrl-Shift-F on Sublime Text 2
-    use 'dyng/ctrlsf.vim'
+    -- use 'dyng/ctrlsf.vim'
 
     -- All the lua functions I don't want to write twice.
     use 'nvim-lua/plenary.nvim'
@@ -86,10 +135,10 @@ return require('packer').startup({function()
     use 'nvim-telescope/telescope.nvim'
     -- FZY sorter for telescope written in c
     use 'nvim-telescope/telescope-fzy-native.nvim'
-    use 'gbrlsnchs/telescope-lsp-handlers.nvim'
-
     -- FZF sorter for telescope written in c
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    use 'gbrlsnchs/telescope-lsp-handlers.nvim'
+
     -- use 'fannheyward/telescope-coc.nvim'
     -- use 'ThePrimeagen/harpoon'
 
@@ -109,6 +158,17 @@ return require('packer').startup({function()
     -- For vsnip user.
     use 'hrsh7th/cmp-vsnip'
     use 'hrsh7th/vim-vsnip'
+
+    -- For luasnip user.
+    use 'L3MON4D3/LuaSnip'
+    use 'saadparwaiz1/cmp_luasnip'
+
+    -- For ultisnips user.
+    use 'SirVer/ultisnips'
+    use 'quangnguyen30192/cmp-nvim-ultisnips'
+    use 'hrsh7th/cmp-nvim-lua'
+
+
 
     -- lsp plugin based on neovim built-in lsp with highly a performant UI.
     use 'glepnir/lspsaga.nvim'
@@ -199,7 +259,7 @@ return require('packer').startup({function()
     -- snippets files for various programming languages
     use 'honza/vim-snippets'
     -- ultimate solution for snippets in Vim
-    use 'sirver/ultisnips'
+    -- use 'sirver/ultisnips'
 
     -- use 'mxw/vim-jsx'
 
@@ -217,7 +277,7 @@ return require('packer').startup({function()
     -- use 'prettier/vim-prettier', { 'do': 'yarn install' }
 
     -- A (Neo)vim plugin for formatting code.
-    use 'sbdchd/neoformat'
+    -- use 'sbdchd/neoformat'
 
     -- use 'yamatsum/nvim-cursorline'
     -- use 'APZelos/blamer.nvim'
@@ -333,7 +393,7 @@ return require('packer').startup({function()
     use 'onsails/lspkind-nvim'
 
     -- minimap / scrollbar for vim
-    use 'wfxr/minimap.vim'
+    -- use 'wfxr/minimap.vim'
 
 
 
@@ -381,10 +441,10 @@ return require('packer').startup({function()
     --     end
     -- }
     -- use { 'camspiers/snap', rocks = {'fzy'}}
-    use 'notomo/gesture.nvim'
+    -- use 'notomo/gesture.nvim'
 
     -- Find the enemy and replace them with dark power
-    use 'windwp/nvim-spectre'
+    -- use 'windwp/nvim-spectre'
     -- use {
     --     'winston0410/mark-radar.nvim',
     --     require("mark-radar").setup{
@@ -396,13 +456,59 @@ return require('packer').startup({function()
     use 'kshenoy/vim-signature'
 
     use 'voldikss/vim-floaterm'
-    use 'windwp/nvim-ts-autotag'
-    use {'edluffy/specs.nvim'}
+    -- use 'windwp/nvim-ts-autotag'
+    -- use {'edluffy/specs.nvim'}
 
     -- use {'ms-jpq/coq_nvim', branch = 'coq'}
     -- use {'ms-jpq/coq.artifacts', branch = 'artifacts'}
     -- use {'ms-jpq/coq.thirdparty', branch = '3p'}
+    -- use {
+    --     'rmagatti/goto-preview',
+    --     config = function()
+    --         require('goto-preview').setup {}
+    --     end
+    -- }
+    -- use 'xiyaowong/nvim-transparent'
+    -- use 'sindrets/winshift.nvim'
 
+    -- use 'ggandor/lightspeed.nvim'
+    -- use 'dstein64/nvim-scrollview'
+
+    -- use {'ms-jpq/chadtree', branch = 'chad', run = 'python3 -m chadtree deps'}
+
+    -- use 'ms-jpq/chadtree'
+    use 'ThePrimeagen/harpoon'
+
+    use 'chrisbra/csv.vim'
+
+    -- use {
+    --     'abecodes/tabout.nvim',
+    --     config = function()
+    --         require('tabout').setup {
+    --             tabkey = '<Tab>', -- key to trigger tabout, set to an empty string to disable
+    --             backwards_tabkey = '<S-Tab>', -- key to trigger backwards tabout, set to an empty string to disable
+    --             act_as_tab = true, -- shift content if tab out is not possible
+    --             act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+    --             enable_backwards = true, -- well ...
+    --             completion = true, -- if the tabkey is used in a completion pum
+    --             tabouts = {
+    --                 {open = "'", close = "'"},
+    --                 {open = '"', close = '"'},
+    --                 {open = '`', close = '`'},
+    --                 {open = '(', close = ')'},
+    --                 {open = '[', close = ']'},
+    --                 {open = '{', close = '}'}
+    --             },
+    --             ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
+    --             exclude = {} -- tabout will ignore these filetypes
+    --         }
+    --     end,
+    --     wants = {'nvim-treesitter'}, -- or require if not used so far
+    --     after = {'nivm-cmp'} -- if a completion plugin is using tabs load it before
+    -- }
+
+    use {'kevinhwang91/nvim-hlslens'}
+    -- use "rktjmp/highlight-current-n.nvim"
 end,
 config = {
     display = {

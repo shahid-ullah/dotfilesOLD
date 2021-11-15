@@ -10,34 +10,25 @@ require('shahid.custom_functions')
 require('shahid.fzf-lua')
 require('shahid.lspkind')
 require('numb').setup()
-require('github-theme').setup()
--- require'nvim-treesitter.configs'.setup {
---   autotag = {
---     enable = true,
---   }
--- }
+require'hop'.setup()
+-- require('shahid.nvim_transparent')
+-- require('github-theme').setup()
 
--- require('specs').setup{
---     show_jumps  = true,
---     min_jump = 30,
---     popup = {
---         delay_ms = 0, -- delay before popup displays
---         inc_ms = 10, -- time increments used for fade/resize effects
---         blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
---         width = 10,
---         winhl = "PMenu",
---         fader = require('specs').linear_fader,
---         resizer = require('specs').shrink_resizer
---     },
---     ignore_filetypes = {},
---     ignore_buftypes = {
---         nofile = true,
---     },
--- }
--- require("nvim-tree.events").on_nvim_tree_ready(function()
---   vim.cmd("NvimTreeRefresh")
--- end)
+-- require("transparent").setup({
+--   enable = true, -- boolean: enable transparent
+--   extra_groups = { -- table/string: additional groups that should be clear
+--     -- In particular, when you set it to 'all', that means all avaliable groups
 
+--     -- example of akinsho/nvim-bufferline.lua
+--     "BufferLineTabClose",
+--     "BufferlineBufferSelected",
+--     "BufferLineFill",
+--     "BufferLineBackground",
+--     "BufferLineSeparator",
+--     "BufferLineIndicatorSelected",
+--   },
+--   exclude = {}, -- table: groups you don't want to clear
+-- })
 
 local actions = require('telescope.actions')
 
@@ -63,13 +54,13 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+    buf_set_keymap('n', '<space>va', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+    buf_set_keymap('n', '<space>vr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+    buf_set_keymap('n', '<space>vl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
     buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    buf_set_keymap('n', '<space>gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
     buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
@@ -91,16 +82,6 @@ for _, lsp in ipairs(servers) do
         capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
     }
 end
-
-
--- require('lspconfig')[%YOUR_LSP_SERVER%].setup {
---     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- }
--- for _, lsp in ipairs(servers) do
---     nvim_lsp[lsp].setup {
---         coq.lsp_ensure_capabilities()
---     }
--- end
 
 -- End: lsp-config
 
