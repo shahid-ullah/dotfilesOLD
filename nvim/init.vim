@@ -316,7 +316,7 @@ let g:onedark_style = 'darker'
 let g:onedark_transparent_background = 1
 let g:onedark_termcolors=256
 set background=dark
-colorscheme onedark
+colorscheme onedarkpro
 
 "  Lsp Configuration
 imap <silent> <c-p> <Plug>(completion_trigger)
@@ -639,6 +639,7 @@ nnoremap <silent> <c-P> <cmd>lua require('fzf-lua').files()<CR>
 nnoremap <silent> <leader>f :Telescope find_files<CR>
 nnoremap <silent> <leader>b :Telescope buffers<CR>
 nnoremap <silent> <leader>l :Telescope current_buffer_fuzzy_find<CR>
+nnoremap <silent> <c-f> <cmd>lua require('fzf-lua').lines()<CR>
 
 
 nnoremap j gj
