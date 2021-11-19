@@ -1,0 +1,2 @@
+#!/bin/sh
+ctags -R --exclude=.venv --exclude=.git --exclude=worktree --exclude=node_modules --exclude=static --exclude=media --exclude=templates --exclude='*.js' --exclude='*.html' --exclude='*.css' --exclude='*.svg' --exclude='*.xml' --exclude=requirements.in --exclude=requirements.txt $(bundle list --paths)
