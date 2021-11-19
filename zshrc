@@ -74,7 +74,8 @@ SPACESHIP_USER_SHOW=always
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git fzf zsh-autosuggestions zsh-syntax-highlighting)
+  # fzf-tab # to turn it on and off: toggle-fzf-tab
 
 source $ZSH/oh-my-zsh.sh
 
@@ -105,7 +106,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PATH=$HOME/local/nvim/bin:$PATH
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 source ~/.fzf/shell/key-bindings.zsh
 source ~/.fzf/shell/completion.zsh
@@ -133,3 +133,6 @@ alias python='python3'
 
 # alias ctags="universal-ctags -R --exclude=.venv --exclude='*.js' --exclude='*.html' --exclude='*.css' --exclude='*.svg' --exclude='*.xml'"
 # export CDPATH=.:~:~/Desktop/Tappware/projects:~/Desktop/Desktop:~/BlogContent
+
+# put at the end (fzf.zsh)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
