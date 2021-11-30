@@ -31,6 +31,7 @@ floating_modifier $mod
 
 
 # set $term /home/shahid/.cargo/alacrity
+# set $term kitty
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 # bindsym $mod+Return exec $term
@@ -43,6 +44,7 @@ bindsym $mod+Shift+q kill
 # bindsym $mod+d exec rofi-demenu
 
 bindsym $mod+d exec "rofi -modi window,drun,run -show drun -sidebar-mode -terminal termite -color-window '#000000, #000000, #000000' -color-normal '#000000, #b3e774, #000000, #b3e774, #000000' -color-active '#000000, #b3e774, #000000, #b3e774, #000000' -color-urgent '#000000, #b3e774, #000000, #b3e774, #000000'"
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -215,7 +217,7 @@ bar
     position top
     status_command i3status
     font pango:DejaVu Sans Mono 10
-    separator_symbol “⁞”
+    separator_symbol “|”
 }
 
 # Take a screenshot upon pressing $mod+x (select an area)
@@ -265,3 +267,4 @@ bindsym $mod+m bar mode toggle
 # bindsym $mod+v split vertical
 # bindsym $mod+h split horizontal
 # bindsym $mod+t split toggle
+exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpaper2.jpg
