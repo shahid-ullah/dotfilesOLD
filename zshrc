@@ -131,7 +131,6 @@ alias cd5="cd ../../../../.."
 
 alias python='python3'
 
-# alias ctags="universal-ctags -R --exclude=.venv --exclude='*.js' --exclude='*.html' --exclude='*.css' --exclude='*.svg' --exclude='*.xml'"
 # export CDPATH=.:~:~/Desktop/Tappware/projects:~/Desktop/Desktop:~/BlogContent
 
 # put at the end (fzf.zsh)
