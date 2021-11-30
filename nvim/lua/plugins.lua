@@ -61,7 +61,9 @@ return require('packer').startup({function()
 
     use 'Th3Whit3Wolf/space-nvim'
     use 'olimorris/onedarkpro.nvim'
-    use 'marko-cerovac/material.nvim'
+    -- use 'marko-cerovac/material.nvim'
+    use 'kaicataldo/material.vim'
+    use 'kristijanhusak/vim-hybrid-material'
 
     use 'AlessandroYorba/Alduin'
     use 'tomasiser/vim-code-dark'
@@ -208,7 +210,8 @@ return require('packer').startup({function()
     use 'jiangmiao/auto-pairs'
 
     -- shows a git diff in the sign column
-    use 'airblade/vim-gitgutter'
+    -- use 'airblade/vim-gitgutter'
+    use 'mhinz/vim-signify'
 
     -- A vim plugin to display the indention levels with thin vertical lines
     -- use 'yggdroot/indentline'

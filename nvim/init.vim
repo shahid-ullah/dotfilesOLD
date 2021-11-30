@@ -305,18 +305,19 @@ endif
 
 
 set termguicolors
-let g:gruvbox_invert_selection='0'
-let g:gruvbox_contrast_dark = 'hard'
-let g:gruvbox_italic=1
+" let g:gruvbox_invert_selection='0'
+" let g:gruvbox_contrast_dark = 'hard'
+" let g:gruvbox_italic=1
 
-let g:material_style='deep'
+" let g:material_style='deep'
 
-" onedark specific
-let g:onedark_style = 'darker'
-let g:onedark_transparent_background = 1
-let g:onedark_termcolors=256
-set background=dark
-colorscheme onedarkpro
+" " onedark specific
+" let g:onedark_style = 'darker'
+" let g:onedark_transparent_background = 1
+" let g:onedark_termcolors=256
+" set background=dark
+" " colorscheme onedarkpro
+" colorscheme gruvbox-material
 
 "  Lsp Configuration
 imap <silent> <c-p> <Plug>(completion_trigger)
@@ -729,3 +730,21 @@ noremap * *<Cmd>lua require('hlslens').start()<CR>
 noremap # #<Cmd>lua require('hlslens').start()<CR>
 noremap g* g*<Cmd>lua require('hlslens').start()<CR>
 noremap g# g#<Cmd>lua require('hlslens').start()<CR>
+
+let g:gruvbox_material_background = 'soft'
+let g:gruvbox_material_enable_bold = 1
+let g:gruvbox_material_enable_italic = 1
+
+" let g:gruvbox_material_transparent_background = 1
+colorscheme gruvbox-material
+set updatetime=100
+
+let g:material_terminal_italics = 1
+let g:material_theme_style = 'palenight-community'
+colorscheme material
+
+
+let g:enable_bold_font = 1
+let g:enable_italic_font = 1
+" let g:hybrid_transparent_background = 1
+colorscheme hybrid_material
