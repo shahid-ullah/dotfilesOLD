@@ -1,0 +1,3 @@
+-- vim.api.nvim_set_keymap('n', '<c-y>', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', {noremap=true})
+-- vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>lua require("telescope").extensions.harpoon.marks()<cr>', {noremap=true})
+-- vim.api.nvim_set_keymap('n', '<leader>m', '<cmd>lua require("harpoon.mark").add_file()<cr>', {noremap=true})

@@ -1,11 +1,9 @@
 local actions = require('telescope.actions')
 require('telescope').setup {
     defaults = {
-        file_sorter = require('telescope.sorters').get_fzy_sorter,
         prompt_prefix = ' >',
         color_devicons = true,
-        sorting_strategy = "ascending",
-
+        sorting_strategy = "descending",
         file_previewer   = require('telescope.previewers').vim_buffer_cat.new,
         grep_previewer   = require('telescope.previewers').vim_buffer_vimgrep.new,
         qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
@@ -17,12 +15,6 @@ require('telescope').setup {
             },
         }
     },
-    -- extensions = {
-    --     fzy_native = {
-    --         override_generic_sorter = false,
-    --         override_file_sorter = true,
-    --     }
-    -- }
      extensions = {
         fzf = {
           fuzzy = true,                    -- false will only do exact matching
@@ -34,7 +26,5 @@ require('telescope').setup {
       }
 }
 
--- require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('fzf')
--- require('telescope').load_extension('coc')
--- require('telescope').load_extension('lsp_handlers')
+require("telescope").load_extension('harpoon')

@@ -10,6 +10,8 @@ return require('packer').startup({function()
         run = ':TSUpdate'
     }
 
+    use 'nvim-treesitter/playground'
+
     -- collection of language packs for Vim
     use 'sheerun/vim-polyglot'
 
@@ -19,12 +21,14 @@ return require('packer').startup({function()
     -- colorschemes
 
     use 'tjdevries/colorbuddy.vim'
+    use 'andersevenrud/nordic.nvim'
+    use 'Shatur/neovim-ayu'
+    use 'challenger-deep-theme/vim'
 
+    use 'rmehri01/onenord.nvim'
     use "catppuccin/nvim"
     use 'jnurmine/Zenburn'
-
     use 'RishabhRD/nvim-rdark'
-
     -- use {
     --     'https://git.sr.ht/~novakane/kosmikoa.nvim',
     --     -- you can require it directly here
@@ -32,14 +36,10 @@ return require('packer').startup({function()
     --         require'kosmikoa'
     --     end,
     -- }
-
     use {"rktjmp/lush.nvim"}
     use {"adisen99/codeschool.nvim"}
-
     use 'bkegley/gloombuddy'
-
     use 'fenetikm/falcon'
-
     use 'Iron-E/nvim-highlite'
     use 'EdenEast/nightfox.nvim'
     use({
@@ -53,51 +53,42 @@ return require('packer').startup({function()
             end
         })
     -- use 'embark-theme/vim'
-
     use 'kyazdani42/blue-moon'
     use 'tjdevries/gruvbuddy.nvim'
     use 'frenzyexists/aquarium-vim'
     use 'glepnir/zephyr-nvim'
-
     use 'Th3Whit3Wolf/space-nvim'
     use 'olimorris/onedarkpro.nvim'
     -- use 'marko-cerovac/material.nvim'
     use 'kaicataldo/material.vim'
     use 'kristijanhusak/vim-hybrid-material'
-
     use 'AlessandroYorba/Alduin'
     use 'tomasiser/vim-code-dark'
     use 'sainnhe/gruvbox-material'
     use 'jacoborus/tender.vim'
     use 'mhartington/oceanic-next'
-
-
-
     use 'Elethom/midnight.vim'
-
     use 'crusoexia/vim-monokai'
     use 'srcery-colors/srcery-vim'
     use 'nanotech/jellybeans.vim'
     use 'ajmwagar/vim-deus'
     -- use 'sonph/onehalf'
-
     use 'sjl/badwolf'
     use 'rakr/vim-one'
-
     use "rafamadriz/neon"
-
-    use "projekt0n/github-nvim-theme"
+    use {
+        "projekt0n/github-nvim-theme",
+        -- config = require('setup.github-theme'),
+    }
     -- use 'morhetz/gruvbox'
     -- use 'joshdick/onedark.vim'
     -- use 'navarasu/onedark.nvim'
     -- use 'savq/melange'
     -- use 'gruvbox-community/gruvbox'
-
     use {"ellisonleao/gruvbox.nvim"}
     -- use 'wojciechkepka/bogster'
     --    use 'arzg/vim-colors-xcode'
     use 'NLKNguyen/papercolor-theme'
-
     use 'shaunsingh/nord.nvim'
     -- use 'arcticicestudio/nord-vim'
     -- use 'lifepillar/vim-solarized8'
@@ -134,28 +125,34 @@ return require('packer').startup({function()
     use 'nvim-lua/popup.nvim'
 
     -- fuzzy finder
-    use 'nvim-telescope/telescope.nvim'
+    -- use 'nvim-telescope/telescope.nvim'
+
+    use {
+        "nvim-telescope/telescope.nvim",
+    }
+
     -- FZY sorter for telescope written in c
-    use 'nvim-telescope/telescope-fzy-native.nvim'
+    -- use 'nvim-telescope/telescope-fzy-native.nvim'
     -- FZF sorter for telescope written in c
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    use 'gbrlsnchs/telescope-lsp-handlers.nvim'
+    -- use 'gbrlsnchs/telescope-lsp-handlers.nvim'
 
     -- use 'fannheyward/telescope-coc.nvim'
-    -- use 'ThePrimeagen/harpoon'
-
-    -- A async completion framework aims to provide completion to neovim's
-    -- built in LSP written in Lua
-    -- use 'nvim-lua/completion-nvim'
 
     -- configurations for the Nvim LSP client
-    use 'neovim/nvim-lspconfig'
+    use {
+        'neovim/nvim-lspconfig',
+        -- config = require('setup.lsp-config'),
+    }
 
     -- Auto completion Lua plugin for nvim
     -- use 'hrsh7th/nvim-compe'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/nvim-cmp'
+    use {
+        'hrsh7th/nvim-cmp',
+        -- config = require('setup.cmp')
+    }
 
     -- For vsnip user.
     use 'hrsh7th/cmp-vsnip'
@@ -169,7 +166,6 @@ return require('packer').startup({function()
     use 'SirVer/ultisnips'
     use 'quangnguyen30192/cmp-nvim-ultisnips'
     use 'hrsh7th/cmp-nvim-lua'
-
 
 
     -- lsp plugin based on neovim built-in lsp with highly a performant UI.
@@ -196,7 +192,11 @@ return require('packer').startup({function()
     use 'preservim/tagbar'
 
     -- Comment stuff out
-    use 'tpope/vim-commentary'
+    -- use 'tpope/vim-commentary'
+    use {
+        'numToStr/Comment.nvim',
+        -- config = require('setup.Comment'),
+    }
     -- "surroundings": parentheses, brackets, quotes, XML tags, and more
     use 'tpope/vim-surround'
     -- Vim plugin that provides additional text objects
@@ -295,7 +295,10 @@ return require('packer').startup({function()
     -- }
 
     -- Neovim plugin that peeks lines of the buffer in non-obtrusive way
-    use 'nacro90/numb.nvim'
+    use {
+        'nacro90/numb.nvim',
+        -- config = require('setup.numb'),
+    }
     -- use 'ray-x/aurora'
     -- use 'justinmk/vim-sneak'
 
@@ -304,7 +307,10 @@ return require('packer').startup({function()
 
     -- Hop is an EasyMotion-like plugin allowing you to jump anywhere in a document
     -- with as few keystrokes as possible
-    use 'phaazon/hop.nvim'
+    use {
+        'phaazon/hop.nvim',
+        -- config = require('setup.hop'),
+    }
 
     -- use 'sonph/onehalf'
 
@@ -326,7 +332,8 @@ return require('packer').startup({function()
 
     use { 'ibhagwan/fzf-lua',
         requires = {
-        'vijaymarupudi/nvim-fzf'} -- optional for icons
+        'vijaymarupudi/nvim-fzf'}, -- optional for icons
+        -- config = require('setup.fzf-lua'),
     }
 
     -- Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP,
@@ -367,7 +374,10 @@ return require('packer').startup({function()
 
     -- This plugin adds indentation guides to all lines (including empty lines).
     use "lukas-reineke/indent-blankline.nvim"
-    use 'tamago324/lir.nvim'
+    use {
+        'tamago324/lir.nvim',
+        -- config = require('setup.lir'),
+    }
     -- use {
     --     'rmagatti/session-lens',
     --     requires = {'rmagatti/auto-session'},
@@ -393,12 +403,13 @@ return require('packer').startup({function()
 
 
     -- vscode-like pictograms for neovim lsp completion items
-    use 'onsails/lspkind-nvim'
+    use {
+        'onsails/lspkind-nvim',
+        -- config = require('setup.lspkind'),
+    }
 
     -- minimap / scrollbar for vim
     -- use 'wfxr/minimap.vim'
-
-
 
 
     -- start markdown development
@@ -471,7 +482,7 @@ return require('packer').startup({function()
     --         require('goto-preview').setup {}
     --     end
     -- }
-    -- use 'xiyaowong/nvim-transparent'
+    use 'xiyaowong/nvim-transparent'
     -- use 'sindrets/winshift.nvim'
 
     -- use 'ggandor/lightspeed.nvim'
@@ -480,7 +491,10 @@ return require('packer').startup({function()
     -- use {'ms-jpq/chadtree', branch = 'chad', run = 'python3 -m chadtree deps'}
 
     -- use 'ms-jpq/chadtree'
-    use 'ThePrimeagen/harpoon'
+    use {
+        'ThePrimeagen/harpoon',
+        -- config = require('setup.harpoon'),
+    }
 
     use 'chrisbra/csv.vim'
 
@@ -511,6 +525,8 @@ return require('packer').startup({function()
     -- }
 
     use {'kevinhwang91/nvim-hlslens'}
+    use {'stevearc/dressing.nvim'}
+    use 'psliwka/vim-smoothie'
     -- use "rktjmp/highlight-current-n.nvim"
 end,
 config = {
