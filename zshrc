@@ -121,7 +121,8 @@ export EDITOR=vim
 
 
 # alias nv="nvim"
-alias tmux='tmux -2'
+# alias tmux='tmux -2'
+# alias tmux="TERM=screen-256color-bce tmux -2"
 
 alias cd1="cd .."
 alias cd2="cd ../.."
@@ -131,7 +132,10 @@ alias cd5="cd ../../../../.."
 
 alias python='python3'
 
-# export CDPATH=.:~:~/Desktop/Tappware/projects:~/Desktop/Desktop:~/BlogContent
+export CDPATH=.:~:~/Desktop
 
 # put at the end (fzf.zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export TERM="xterm-256color"
+# export TERM=screen-256color
