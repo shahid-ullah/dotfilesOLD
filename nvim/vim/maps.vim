@@ -1,9 +1,6 @@
 nnoremap <silent><leader><leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader><leader>sv :source $MYVIMRC<cr>
 
-inoremap <C-v> <ESC>"+p<ESC>
-
-
 " Move visual selection
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
@@ -115,6 +112,5 @@ nnoremap k gk
 
 " hightlight last pasted content
 nnoremap gp `[v`]
-
 
 nnoremap <leader>rm :RemoveMarks<CR>

@@ -32,7 +32,7 @@ vim.o.relativenumber = true
 
 vim.o.encoding = 'utf-8'
 
-vim.o.ignorecase = true
+vim.o.ignorecase = false
 vim.o.incsearch = true
 vim.o.hlsearch = true
 vim.o.smartcase = true

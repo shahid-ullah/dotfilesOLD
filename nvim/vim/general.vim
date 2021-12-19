@@ -1,5 +1,7 @@
 
 set termguicolors " this variable must be enabled for colors to be applied properly
+set t_ut=
+set t_Co=256
 let g:vimsyn_embed = 'l' "Enable lua code hightlight in vim script
 
 "configuration: colorscheme gruvbox
@@ -22,3 +24,13 @@ set undodir=~/.vim/undodir
 set clipboard+=unnamed
 
 set tags=tags; "Look for a tags file recursively in parent directories
+
+" If linux then set ttymouse
+" let s:uname = system("echo -n \"$(uname)\"")
+" if !v:shell_error && s:uname == "Linux" && !has('nvim')
+"   set ttymouse=xterm
+" endif
+
+
+hi! link QuickFixLine Search
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1

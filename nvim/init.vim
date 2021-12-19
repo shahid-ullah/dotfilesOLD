@@ -5,7 +5,6 @@ lua require('init')
 
 source ~/.config/nvim/vim/general.vim
 source ~/.config/nvim/vim/maps.vim
-source ~/.config/nvim/vim/settings.vim
 
 source ~/.config/nvim/vim/theme/vim-hybrid.vim
 source ~/.config/nvim/vim/vim-airline.vim
@@ -34,3 +33,5 @@ source ~/.config/nvim/vim/limelight.vim
 source ~/.config/nvim/vim/lsp.vim
 
 source ~/.config/nvim/vim/uncategorized.vim
+
+nnoremap <leader><leader>c :FzfLua colorschemes<cr>

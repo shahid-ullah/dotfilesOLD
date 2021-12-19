@@ -3,7 +3,7 @@ require('telescope').setup {
     defaults = {
         prompt_prefix = ' >',
         color_devicons = true,
-        sorting_strategy = "descending",
+        sorting_strategy = "ascending",
         file_previewer   = require('telescope.previewers').vim_buffer_cat.new,
         grep_previewer   = require('telescope.previewers').vim_buffer_vimgrep.new,
         qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,

@@ -39,13 +39,13 @@ augroup every
   autocmd!
   autocmd InsertLeave,WinEnter * set cursorline
   autocmd InsertEnter,WinLeave * set nocursorline
-  au InsertEnter * set norelativenumber
-  au InsertLeave * set relativenumber
+  autocmd InsertEnter * set norelativenumber
+  autocmd InsertLeave * set relativenumber
 augroup END
 
 
 " Update a buffer's contents on focus if it changed outside of Vim.
-au FocusGained,BufEnter * :checktime
+autocmd FocusGained,BufEnter * :checktime
 
 " Unset paste on InsertLeave.
 autocmd InsertLeave * silent! set nopaste
