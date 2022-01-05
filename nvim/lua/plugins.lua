@@ -104,7 +104,7 @@ return require('packer').startup({function()
     use 'phanviet/vim-monokai-pro'
     use 'bluz71/vim-moonfly-colors'
     use 'overcache/NeoSolarized'
-    -- use 'folke/tokyonight.nvim', { 'branch': 'main' }
+    use 'folke/tokyonight.nvim'
 
     -- Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP, unite, Denite, lightline, vim-startify and many more
     use 'ryanoasis/vim-devicons'
@@ -125,8 +125,6 @@ return require('packer').startup({function()
     use 'nvim-lua/popup.nvim'
 
     -- fuzzy finder
-    -- use 'nvim-telescope/telescope.nvim'
-
     use {
         "nvim-telescope/telescope.nvim",
     }
@@ -142,7 +140,6 @@ return require('packer').startup({function()
     -- configurations for the Nvim LSP client
     use {
         'neovim/nvim-lspconfig',
-        -- config = require('setup.lsp-config'),
     }
 
     -- Auto completion Lua plugin for nvim
@@ -151,7 +148,6 @@ return require('packer').startup({function()
     use 'hrsh7th/cmp-buffer'
     use {
         'hrsh7th/nvim-cmp',
-        -- config = require('setup.cmp')
     }
 
     -- For vsnip user.
@@ -500,28 +496,6 @@ return require('packer').startup({function()
 
     -- use {
     --     'abecodes/tabout.nvim',
-    --     config = function()
-    --         require('tabout').setup {
-    --             tabkey = '<Tab>', -- key to trigger tabout, set to an empty string to disable
-    --             backwards_tabkey = '<S-Tab>', -- key to trigger backwards tabout, set to an empty string to disable
-    --             act_as_tab = true, -- shift content if tab out is not possible
-    --             act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
-    --             enable_backwards = true, -- well ...
-    --             completion = true, -- if the tabkey is used in a completion pum
-    --             tabouts = {
-    --                 {open = "'", close = "'"},
-    --                 {open = '"', close = '"'},
-    --                 {open = '`', close = '`'},
-    --                 {open = '(', close = ')'},
-    --                 {open = '[', close = ']'},
-    --                 {open = '{', close = '}'}
-    --             },
-    --             ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
-    --             exclude = {} -- tabout will ignore these filetypes
-    --         }
-    --     end,
-    --     wants = {'nvim-treesitter'}, -- or require if not used so far
-    --     after = {'nivm-cmp'} -- if a completion plugin is using tabs load it before
     -- }
 
     use {'kevinhwang91/nvim-hlslens'}

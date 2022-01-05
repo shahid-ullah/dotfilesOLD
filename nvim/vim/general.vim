@@ -1,7 +1,7 @@
-
+let g:python3_host_prog='/usr/bin/python3.8'
 set termguicolors " this variable must be enabled for colors to be applied properly
-set t_ut=
-set t_Co=256
+" set t_ut=
+" set t_Co=256
 let g:vimsyn_embed = 'l' "Enable lua code hightlight in vim script
 
 "configuration: colorscheme gruvbox
@@ -33,4 +33,4 @@ set tags=tags; "Look for a tags file recursively in parent directories
 
 
 hi! link QuickFixLine Search
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1

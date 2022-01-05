@@ -105,8 +105,6 @@ nnoremap <leader>R :set wrap!<CR>
 noremap <A-j> gT
 noremap <A-k> gt
 
-set noignorecase
-
 nnoremap j gj
 nnoremap k gk
 
@@ -114,3 +112,5 @@ nnoremap k gk
 nnoremap gp `[v`]
 
 nnoremap <leader>rm :RemoveMarks<CR>
+
+nnoremap <leader><leader>c :FzfLua colorschemes<cr>
