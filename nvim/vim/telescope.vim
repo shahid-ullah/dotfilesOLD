@@ -4,3 +4,6 @@ nmap <silent> <leader>vr :Telescope lsp_references<CR>
 nnoremap <silent> <leader>f :Telescope find_files<CR>
 nnoremap <silent> <leader>b :Telescope buffers<CR>
 nnoremap <silent> <leader>l :Telescope current_buffer_fuzzy_find<CR>
+nnoremap <silent> <leader>vg :Telescope live_grep<CR>
+nnoremap <silent> <c-f> :Telescope live_grep<CR>
+nnoremap <silent> <leader>g :Telescope live_grep<CR>

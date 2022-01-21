@@ -92,18 +92,20 @@ nnoremap Q @@
 inoremap <C-U> <C-G>u<C-U>
 
 " Go to start or end of line easier
-nnoremap H ^
-xnoremap H ^
-nnoremap L g_
-xnoremap L g_
+" nnoremap H ^
+" xnoremap H ^
+" nnoremap L g_
+" xnoremap L g_
 
 
 map ' `
 
 nnoremap <leader>R :set wrap!<CR>
 
-noremap <A-j> gT
-noremap <A-k> gt
+" noremap <A-j> gT
+noremap <S-h> gT
+" noremap <A-k> gt
+noremap <S-l> gt
 
 nnoremap j gj
 nnoremap k gk

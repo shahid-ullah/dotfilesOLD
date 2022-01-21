@@ -7,7 +7,7 @@ require('custom_functions')
 
 
 
--- configs
+-- plugins
 require('config.nvim-treesitter')
 require('config.telescope')
 require('config.cmp')
@@ -25,10 +25,14 @@ require('config.lir')
 require('config.lsp-config')
 require('config.goto_preview')
 require('config.lspkind')
+require('config.nvim-autopairs')
+require('config.trouble')
+require('config.gitsigns')
 
 vim.cmd('source ~/.config/nvim/vim/general.vim')
 vim.cmd('source ~/.config/nvim/vim/maps.vim')
 
+-- Plugins
 vim.cmd('source ~/.config/nvim/vim/theme/vim-hybrid.vim')
 vim.cmd('source ~/.config/nvim/vim/vim-airline.vim')
 
@@ -57,4 +61,7 @@ vim.cmd('source ~/.config/nvim/vim/trouble.vim')
 vim.cmd('source ~/.config/nvim/vim/limelight.vim')
 vim.cmd('source ~/.config/nvim/vim/lsp.vim')
 
+-- uncategorized
 vim.cmd('source ~/.config/nvim/vim/uncategorized.vim')
+
+vim.cmd('colorscheme tokyonight')

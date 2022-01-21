@@ -1,19 +1,21 @@
 -- maps.lua
+local opts = {noremap=true, silent=true}
+local keymap = vim.api.nvim_set_keymap
 
 -- map the leader key
-vim.api.nvim_set_keymap('n', '<Space>', '', {})
+keymap('n', '<Space>', '', {})
 vim.g.mapleader = ' '  -- 'vim.g' sets global variables
 
-vim.api.nvim_set_keymap('n', 'Q', '<nop>', {noremap=true, silent=true})
-vim.api.nvim_set_keymap('i', 'jk', '<ESC>l', {})
+keymap('n', 'Q', '<nop>', opts)
+keymap('i', 'jk', '<ESC>l', opts)
 
-vim.api.nvim_set_keymap('n', '<esc>', ':nohlsearch<cr>', {noremap = true})
+keymap('n', '<esc>', ':nohlsearch<cr>', {noremap = true})
 
-vim.api.nvim_set_keymap('n', '<leader>F', 'mzgg=G`z', {noremap = true})
+keymap('n', '<leader>F', 'mzgg=G`z', {noremap = true})
 
-vim.api.nvim_set_keymap('n', ';', ':', {noremap = true})
-vim.api.nvim_set_keymap('n', '\\', ';', {noremap = true})
+keymap('n', ';', ':', {noremap = true})
+keymap('n', '\\', ';', {noremap = true})
 
 -- sometimes this happens and I hate it
-vim.api.nvim_set_keymap('', ':Vs', ':vs', {})
-vim.api.nvim_set_keymap('', ':Sp', ':sp', {})
+keymap('', ':Vs', ':vs', {})
+keymap('', ':Sp', ':sp', {})

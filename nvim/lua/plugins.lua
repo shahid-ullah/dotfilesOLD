@@ -9,6 +9,7 @@ return require('packer').startup({function()
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     }
+    use 'nvim-treesitter/nvim-treesitter-refactor'
 
     use 'nvim-treesitter/playground'
 
@@ -20,7 +21,13 @@ return require('packer').startup({function()
 
     -- colorschemes
 
+
+    use 'luisiacc/gruvbox-baby'
+    use "rebelot/kanagawa.nvim"
     use 'tjdevries/colorbuddy.vim'
+    use 'mangeshrex/uwu.vim'
+    -- use 'mjlbach/onedark.nvim'
+    use 'LunarVim/darkplus.nvim'
     use 'andersevenrud/nordic.nvim'
     use 'Shatur/neovim-ayu'
     use 'challenger-deep-theme/vim'
@@ -31,10 +38,6 @@ return require('packer').startup({function()
     use 'RishabhRD/nvim-rdark'
     -- use {
     --     'https://git.sr.ht/~novakane/kosmikoa.nvim',
-    --     -- you can require it directly here
-    --     config = function()
-    --         require'kosmikoa'
-    --     end,
     -- }
     use {"rktjmp/lush.nvim"}
     use {"adisen99/codeschool.nvim"}
@@ -42,23 +45,15 @@ return require('packer').startup({function()
     use 'fenetikm/falcon'
     use 'Iron-E/nvim-highlite'
     use 'EdenEast/nightfox.nvim'
-    use({
-            'rose-pine/neovim',
-            as = 'rose-pine',
-            config = function()
-                -- Options (see available options below)
-                vim.g.rose_pine_variant = 'base'
-
-                -- Load colorscheme after options
-            end
-        })
+    use 'rose-pine/neovim'
     -- use 'embark-theme/vim'
     use 'kyazdani42/blue-moon'
     use 'tjdevries/gruvbuddy.nvim'
     use 'frenzyexists/aquarium-vim'
     use 'glepnir/zephyr-nvim'
     use 'Th3Whit3Wolf/space-nvim'
-    use 'olimorris/onedarkpro.nvim'
+    -- use 'olimorris/onedarkpro.nvim'
+    use 'ful1e5/onedark.nvim'
     -- use 'marko-cerovac/material.nvim'
     use 'kaicataldo/material.vim'
     use 'kristijanhusak/vim-hybrid-material'
@@ -68,7 +63,10 @@ return require('packer').startup({function()
     use 'jacoborus/tender.vim'
     use 'mhartington/oceanic-next'
     use 'Elethom/midnight.vim'
-    use 'crusoexia/vim-monokai'
+    -- use 'crusoexia/vim-monokai'
+    -- use 'phanviet/vim-monokai-pro'
+    --
+    use 'tanvirtin/monokai.nvim'
     use 'srcery-colors/srcery-vim'
     use 'nanotech/jellybeans.vim'
     use 'ajmwagar/vim-deus'
@@ -76,16 +74,13 @@ return require('packer').startup({function()
     use 'sjl/badwolf'
     use 'rakr/vim-one'
     use "rafamadriz/neon"
-    use {
-        "projekt0n/github-nvim-theme",
-        -- config = require('setup.github-theme'),
-    }
+    use "projekt0n/github-nvim-theme"
     -- use 'morhetz/gruvbox'
     -- use 'joshdick/onedark.vim'
     -- use 'navarasu/onedark.nvim'
     -- use 'savq/melange'
     -- use 'gruvbox-community/gruvbox'
-    use {"ellisonleao/gruvbox.nvim"}
+    use "ellisonleao/gruvbox.nvim"
     -- use 'wojciechkepka/bogster'
     --    use 'arzg/vim-colors-xcode'
     use 'NLKNguyen/papercolor-theme'
@@ -101,12 +96,12 @@ return require('packer').startup({function()
     use 'Pocco81/Catppuccino.nvim'
     -- use 'sainnhe/sonokai'
     -- use 'mihaifm/4colors'
-    use 'phanviet/vim-monokai-pro'
     use 'bluz71/vim-moonfly-colors'
     use 'overcache/NeoSolarized'
     use 'folke/tokyonight.nvim'
 
-    -- Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP, unite, Denite, lightline, vim-startify and many more
+    -- Adds file type icons to Vim plugins such as: NERDTree, vim-airline,
+    -- CtrlP, unite, Denite, lightline, vim-startify and many more
     use 'ryanoasis/vim-devicons'
 
     use 'junegunn/fzf'
@@ -125,30 +120,23 @@ return require('packer').startup({function()
     use 'nvim-lua/popup.nvim'
 
     -- fuzzy finder
-    use {
-        "nvim-telescope/telescope.nvim",
-    }
+    use "nvim-telescope/telescope.nvim"
 
     -- FZY sorter for telescope written in c
     -- use 'nvim-telescope/telescope-fzy-native.nvim'
     -- FZF sorter for telescope written in c
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     -- use 'gbrlsnchs/telescope-lsp-handlers.nvim'
-
     -- use 'fannheyward/telescope-coc.nvim'
-
     -- configurations for the Nvim LSP client
     use {
         'neovim/nvim-lspconfig',
     }
 
     -- Auto completion Lua plugin for nvim
-    -- use 'hrsh7th/nvim-compe'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
-    use {
-        'hrsh7th/nvim-cmp',
-    }
+    use 'hrsh7th/nvim-cmp'
 
     -- For vsnip user.
     use 'hrsh7th/cmp-vsnip'
@@ -189,10 +177,7 @@ return require('packer').startup({function()
 
     -- Comment stuff out
     -- use 'tpope/vim-commentary'
-    use {
-        'numToStr/Comment.nvim',
-        -- config = require('setup.Comment'),
-    }
+    use 'numToStr/Comment.nvim'
     -- "surroundings": parentheses, brackets, quotes, XML tags, and more
     use 'tpope/vim-surround'
     -- Vim plugin that provides additional text objects
@@ -202,12 +187,9 @@ return require('packer').startup({function()
     -- Pairs of handy bracket mappings
     use 'tpope/vim-unimpaired'
 
-    -- Vim plugin, insert or delete brackets, parens, quotes in pair
-    use 'jiangmiao/auto-pairs'
-
     -- shows a git diff in the sign column
     -- use 'airblade/vim-gitgutter'
-    use 'mhinz/vim-signify'
+    -- use 'mhinz/vim-signify'
 
     -- A vim plugin to display the indention levels with thin vertical lines
     -- use 'yggdroot/indentline'
@@ -238,7 +220,6 @@ return require('packer').startup({function()
 
     -- lean & mean status/tabline for vim that's light as air
     use 'vim-airline/vim-airline'
-
 
     -- A collection of themes for vim-airline
     use 'vim-airline/vim-airline-themes'
@@ -329,7 +310,6 @@ return require('packer').startup({function()
     use { 'ibhagwan/fzf-lua',
         requires = {
         'vijaymarupudi/nvim-fzf'}, -- optional for icons
-        -- config = require('setup.fzf-lua'),
     }
 
     -- Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP,
@@ -337,10 +317,10 @@ return require('packer').startup({function()
     use 'kyazdani42/nvim-web-devicons'
 
     -- A tree like view for symbols in Neovim using the Language Server Protocol
-    use 'simrat39/symbols-outline.nvim'
+    -- use 'simrat39/symbols-outline.nvim'
 
     -- Rainbow Parentheses Improved
-    use 'luochen1990/rainbow'
+    -- use 'luochen1990/rainbow'
     -- use 'thiagoalessio/rainbow_levels.vim'
     -- use 'Shougo/deoppet.nvim', { 'do': ':UpdateRemotePlugins' }
     -- use 'rhysd/git-messenger.vim'
@@ -357,16 +337,12 @@ return require('packer').startup({function()
     -- A pretty list for showing diagnostics, references, telescope results,
     -- quickfix and location lists to help you solve all the trouble your code
     -- is causing
-    use {
-        "folke/trouble.nvim",
-        config = function()
-            require("trouble").setup {
-            }
-        end
-    }
+    use "folke/trouble.nvim"
     -- Automatically creates missing LSP diagnostics highlight groups for color
     -- schemes that don't yet support the Neovim 0.5 builtin lsp client
     use 'folke/lsp-colors.nvim'
+
+    use "whatsthatsmell/codesmell_dark.vim"
 
     -- This plugin adds indentation guides to all lines (including empty lines).
     use "lukas-reineke/indent-blankline.nvim"
@@ -401,12 +377,10 @@ return require('packer').startup({function()
     -- vscode-like pictograms for neovim lsp completion items
     use {
         'onsails/lspkind-nvim',
-        -- config = require('setup.lspkind'),
     }
 
     -- minimap / scrollbar for vim
     -- use 'wfxr/minimap.vim'
-
 
     -- start markdown development
 
@@ -455,6 +429,11 @@ return require('packer').startup({function()
 
     -- Find the enemy and replace them with dark power
     -- use 'windwp/nvim-spectre'
+    -- use 'windwp/nvim-ts-autotag'
+    --
+    use 'windwp/nvim-autopairs'
+    -- Vim plugin, insert or delete brackets, parens, quotes in pair
+    -- use 'jiangmiao/auto-pairs'
     -- use {
     --     'winston0410/mark-radar.nvim',
     --     require("mark-radar").setup{
@@ -466,7 +445,6 @@ return require('packer').startup({function()
     use 'kshenoy/vim-signature'
 
     use 'voldikss/vim-floaterm'
-    -- use 'windwp/nvim-ts-autotag'
     -- use {'edluffy/specs.nvim'}
 
     -- use {'ms-jpq/coq_nvim', branch = 'coq'}
@@ -500,8 +478,9 @@ return require('packer').startup({function()
 
     use {'kevinhwang91/nvim-hlslens'}
     use {'stevearc/dressing.nvim'}
-    use 'psliwka/vim-smoothie'
+    -- use 'psliwka/vim-smoothie'
     -- use "rktjmp/highlight-current-n.nvim"
+    use 'lewis6991/gitsigns.nvim'
 end,
 config = {
     display = {
