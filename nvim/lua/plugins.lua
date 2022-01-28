@@ -151,6 +151,8 @@ return require('packer').startup({function()
     use 'quangnguyen30192/cmp-nvim-ultisnips'
     use 'hrsh7th/cmp-nvim-lua'
 
+    use 'hrsh7th/cmp-calc'
+
 
     -- lsp plugin based on neovim built-in lsp with highly a performant UI.
     use 'glepnir/lspsaga.nvim'

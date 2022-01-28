@@ -7,3 +7,4 @@ nnoremap <silent> <leader>l :Telescope current_buffer_fuzzy_find<CR>
 nnoremap <silent> <leader>vg :Telescope live_grep<CR>
 nnoremap <silent> <c-f> :Telescope live_grep<CR>
 nnoremap <silent> <leader>g :Telescope live_grep<CR>
+nnoremap <silent> <leader>rr :Telescope resume<CR>

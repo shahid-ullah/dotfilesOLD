@@ -34,3 +34,8 @@ set tags=tags; "Look for a tags file recursively in parent directories
 
 hi! link QuickFixLine Search
 " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+nnoremap <S-ScrollWheelUp> <ScrollWheelLeft>
+" nnoremap <S-2-ScrollWheelUp> <2-ScrollWheelLeft>
+" nnoremap <S-3-ScrollWheelUp> <3-ScrollWheelLeft>
+" nnoremap <S-4-ScrollWheelUp> <4-ScrollWheelLeft>
+nnoremap <S-ScrollWheelDown> <ScrollWheelRight>

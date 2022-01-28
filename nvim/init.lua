@@ -5,8 +5,6 @@ require('mappings')
 -- require('mappings')
 require('custom_functions')
 
-
-
 -- plugins
 require('config.nvim-treesitter')
 require('config.telescope')
